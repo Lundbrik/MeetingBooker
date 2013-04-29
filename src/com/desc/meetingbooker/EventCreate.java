@@ -17,11 +17,19 @@ public class EventCreate {
 	
 	public void setNewEvent(CalEvent event, Context context) {
 		
-		Calendar cal = Calendar.getInstance();
 		Uri EVENTS_URI = Uri.parse(CalendarContract.Events.CONTENT_URI + "events");
 		ContentResolver cr = context.getContentResolver();
 		
 		ContentValues values = new ContentValues();
+		values.put("calendar_id", 1);
+		values.put("title", event.getTitle());
+		values.put("allDay", 0);
+		values.put("dtstart", event.getStart());
+		values.put("dtend", event.getEnd());
+		values.put("description", event.getDescription());
+		values.put("availability", 0);
+		values.put("hasalarm", 0);
+		Uri ev = cr.insert(EVENTS_URI, values);
 		
 	}
 

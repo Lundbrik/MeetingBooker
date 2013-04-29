@@ -7,6 +7,7 @@ import java.util.TimerTask;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.Menu;
 import android.view.View;
@@ -61,6 +62,11 @@ public class MainActivity extends Activity {
 	public void onStop() {
 		super.onStop();
 		finish();
+	}
+	
+	public void startNewMeeting(View view) {
+		Intent intent = new Intent(this, NewMeetingActivity.class);
+		startActivity(intent);
 	}
 	
 	public static void sync() {
