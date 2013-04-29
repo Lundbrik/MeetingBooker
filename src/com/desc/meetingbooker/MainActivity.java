@@ -75,7 +75,7 @@ public class MainActivity extends Activity {
 			}
 		}
 		
-		if (current.getStatus() == 1) {
+		if (current != null && current.getStatus() == 1) {
 			mainView.setBackgroundColor(Color.RED);
 		} else {
 			mainView.setBackgroundColor(Color.GREEN);
@@ -91,7 +91,7 @@ public class MainActivity extends Activity {
 	    		android.R.layout.simple_list_item_1, 
 	    		android.R.id.text1, 
 	    		eventlist);
-		
+
 		listView.setAdapter(adapter);
 	}
 	
