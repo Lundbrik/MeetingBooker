@@ -18,12 +18,18 @@ import android.widget.TimePicker;
 public class NewMeetingActivity extends Activity {
 	
 	private static final String TAG = NewMeetingActivity.class.getSimpleName();
+	private TimePicker timeStart;
+	private TimePicker timeEnd;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		Log.d(TAG, "called onCreate()");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_new_meeting);
+		timeStart = (TimePicker) findViewById(R.id.timePickerStart);
+		timeEnd = (TimePicker) findViewById(R.id.timePickerEnd);
+		timeStart.setIs24HourView(true);
+		timeEnd.setIs24HourView(true);
 	}
 
 	@Override
@@ -38,8 +44,6 @@ public class NewMeetingActivity extends Activity {
 		// Get the different UI fields
 		EditText titleText = (EditText) findViewById(R.id.editTitle);
 		EditText descText = (EditText) findViewById(R.id.editDesc);
-		TimePicker timeStart = (TimePicker) findViewById(R.id.timePickerStart);
-		TimePicker timeEnd = (TimePicker) findViewById(R.id.timePickerEnd);
 		
 		// Read the fields
 		String title = titleText.getText().toString();
