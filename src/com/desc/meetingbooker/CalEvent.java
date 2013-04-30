@@ -21,6 +21,13 @@ public class CalEvent {
 		status = stat;
 	}
 	
+	public CalEvent(long sT, long eT, String tit, String desc) {
+		startTime = sT;
+		endTime = eT;
+		title = tit;
+		description = desc;
+	}
+	
 	public Long getStart() {
 		return startTime;
 	}

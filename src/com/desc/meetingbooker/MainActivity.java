@@ -42,7 +42,7 @@ public class MainActivity extends Activity {
 					}
 				});
 			}
-		}, 1000, 1000);
+		}, 30000, 30000);
 	}
 
 	@Override

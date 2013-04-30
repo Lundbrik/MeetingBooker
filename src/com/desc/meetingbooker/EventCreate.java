@@ -1,12 +1,13 @@
 package com.desc.meetingbooker;
 
-import java.util.Calendar;
+import java.util.TimeZone;
 
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.net.Uri;
 import android.provider.CalendarContract;
+import android.provider.CalendarContract.Events;
 
 public class EventCreate {
 	
@@ -17,7 +18,7 @@ public class EventCreate {
 	
 	public void setNewEvent(CalEvent event, Context context) {
 		
-		Uri EVENTS_URI = Uri.parse(CalendarContract.Events.CONTENT_URI + "events");
+		Uri EVENTS_URI = Uri.parse(CalendarContract.Events.CONTENT_URI.toString());
 		ContentResolver cr = context.getContentResolver();
 		
 		ContentValues values = new ContentValues();
@@ -28,8 +29,8 @@ public class EventCreate {
 		values.put("dtend", event.getEnd());
 		values.put("description", event.getDescription());
 		values.put("availability", 0);
-		values.put("hasalarm", 0);
-		Uri ev = cr.insert(EVENTS_URI, values);
+		values.put(Events.EVENT_TIMEZONE, TimeZone.getDefault().toString());
+		cr.insert(EVENTS_URI, values);
 		
 	}
 
