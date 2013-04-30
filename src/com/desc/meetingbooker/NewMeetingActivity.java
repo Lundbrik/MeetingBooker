@@ -9,15 +9,19 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TimePicker;
 
 public class NewMeetingActivity extends Activity {
+	
+	private static final String TAG = NewMeetingActivity.class.getSimpleName();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		Log.d(TAG, "called onCreate()");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_new_meeting);
 	}
@@ -30,6 +34,7 @@ public class NewMeetingActivity extends Activity {
 	}
 	
 	public void add(View view) {
+		Log.d(TAG, "Adding event to calendar");
 		// Get the different UI fields
 		EditText titleText = (EditText) findViewById(R.id.editTitle);
 		EditText descText = (EditText) findViewById(R.id.editDesc);
@@ -52,14 +57,14 @@ public class NewMeetingActivity extends Activity {
 		try {
 			date = formatter.parse(startTime);
 		} catch (Exception e) {
-			System.out.print(e.toString());
+			Log.e(TAG, e.getMessage());
 		}
 		long start = date.getTime();
 		String endTime = cal.get(Calendar.DAY_OF_MONTH) + "-" + (cal.get(Calendar.MONTH) + 1) + "-" + cal.get(Calendar.YEAR) + " " + endHour + ":" + endMin;
 		try {
 			date = formatter.parse(endTime);
 		} catch (Exception e) {
-			System.out.print(e.toString());
+			Log.e(TAG, e.getMessage());
 		}
 		long end = date.getTime();
 		
@@ -69,9 +74,11 @@ public class NewMeetingActivity extends Activity {
 		EventCreate.instance.setNewEvent(event, context);
 		Intent intent = new Intent(this, MainActivity.class);
 		startActivity(intent);
+		Log.d(TAG, "event inserted");
 	}
 	
 	public void cancel(View view) {
+		Log.d(TAG, "cancel button pressed");
 		Intent intent = new Intent(this, MainActivity.class);
 		startActivity(intent);
 	}

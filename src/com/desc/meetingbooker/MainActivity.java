@@ -9,6 +9,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -21,10 +22,12 @@ public class MainActivity extends Activity {
 	private static TextView textView;
 	private static View mainView;
 	private static Context context;
+	private static final String TAG = MainActivity.class.getSimpleName();
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Log.d(TAG, "onCreate() called");
 		setContentView(R.layout.activity_main);
 		listView = (ListView) findViewById(R.id.listView1);
 		textView = (TextView) findViewById(R.id.textView1);
@@ -32,6 +35,7 @@ public class MainActivity extends Activity {
 		context = getApplicationContext();
 		
 		Timer timer = new Timer();
+		Log.d(TAG, "Timer started");
 		timer.scheduleAtFixedRate(new TimerTask() {
 			@Override
 			public void run() {
@@ -43,6 +47,7 @@ public class MainActivity extends Activity {
 				});
 			}
 		}, 30000, 30000);
+		Log.d(TAG, "onCreate() done");
 	}
 
 	@Override
@@ -65,6 +70,7 @@ public class MainActivity extends Activity {
 	}
 	
 	public void startNewMeeting(View view) {
+		Log.d(TAG, "New Meeting button pressed");
 		Intent intent = new Intent(this, NewMeetingActivity.class);
 		startActivity(intent);
 	}
