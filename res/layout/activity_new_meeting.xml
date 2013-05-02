@@ -23,7 +23,7 @@
         android:layout_below="@+id/titleTextView"
         android:ems="15" 
         android:inputType="text"
-        android:text="@string/text_spontanious">
+        android:text="@string/text_spontaneous">
     </EditText>
     
    	<TextView
