@@ -100,8 +100,8 @@ public class MainActivity extends Activity {
 		
 		ArrayAdapter<CalEvent> adapter = new ArrayAdapter<CalEvent>(
 	    		MainActivity.context, 
-	    		android.R.layout.simple_list_item_1, 
-	    		android.R.id.text1, 
+	    		R.layout.list_black_text, 
+	    		R.id.list_content, 
 	    		eventlist);
 
 		listView.setAdapter(adapter);

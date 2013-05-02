@@ -18,7 +18,7 @@ public class ReadCalendar {
 		CalendarContract.Events.TITLE, CalendarContract.Events.DESCRIPTION
 	};
 	
-	static Cursor cursor;
+	public static Cursor cursor;
 	
 	public static ArrayList<CalEvent> readCalendar(Context context) {
 		

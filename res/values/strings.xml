@@ -6,7 +6,7 @@
     <string name="title_activity_new_meeting">NewMeetingActivity</string>
     <string name="text_title">Title</string>
     <string name="text_description">Description</string>
-    <string name="text_spontanious">Spontanious Meeting</string>
+    <string name="text_spontaneous">Spontaneous Meeting</string>
     <string name="text_start">Start</string>
     <string name="text_end">End</string>
     <string name="text_cancel">Cancel</string>
