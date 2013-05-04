@@ -56,4 +56,14 @@ public class CalEvent {
 		return status;
 	}
 	
+	public boolean equals(CalEvent e) {
+		boolean valid = true;
+		if (startTime != e.getStart() || endTime != e.getEnd() || title.equals(e.getTitle()) || 
+				description.equals(e.getDescription())) {
+			valid = false;
+		}
+		
+		return valid;		
+	}
+	
 }
