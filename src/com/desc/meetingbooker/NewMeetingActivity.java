@@ -82,7 +82,7 @@ public class NewMeetingActivity extends Activity {
 	}
 	
 	public void cancel(View view) {
-		Log.d(TAG, "cancel button pressed");
+		Log.d(TAG, "Cancel button pressed");
 		Intent intent = new Intent(this, MainActivity.class);
 		startActivity(intent);
 	}
