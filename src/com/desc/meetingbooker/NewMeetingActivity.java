@@ -26,8 +26,12 @@ public class NewMeetingActivity extends Activity {
 		Log.d(TAG, "called onCreate()");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_new_meeting);
+		
+		// Finds the TimePickers
 		timeStart = (TimePicker) findViewById(R.id.timePickerStart);
 		timeEnd = (TimePicker) findViewById(R.id.timePickerEnd);
+		
+		// Sets the TimePickers to use 24 hour
 		timeStart.setIs24HourView(true);
 		timeEnd.setIs24HourView(true);
 	}

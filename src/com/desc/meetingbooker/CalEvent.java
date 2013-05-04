@@ -9,7 +9,7 @@ public class CalEvent {
 	private String title;
 	private String description;
 	private Format datF;
-	// status : 0 ikke holdt, 1 igang, -1 afsluttet
+	// status : 0 not started yet, 1 underway, -1 done
 	private int status;
 	
 	public CalEvent(long sT, long eT, String tit, String desc, Format tf, int stat) {

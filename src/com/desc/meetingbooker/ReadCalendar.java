@@ -13,6 +13,7 @@ import android.text.format.DateFormat;
 
 public class ReadCalendar {
 	
+	// The query used to get the events from the Android calendar
 	private static final String[] COLS = new String[] {
 		CalendarContract.Events.DTSTART, CalendarContract.Events.DTEND, 
 		CalendarContract.Events.TITLE, CalendarContract.Events.DESCRIPTION
@@ -21,21 +22,27 @@ public class ReadCalendar {
 	public static Cursor cursor;
 	
 	public static ArrayList<CalEvent> readCalendar(Context context) {
-		
+		// The ArrayList to hold the events
 		ArrayList<CalEvent> eventlist = new ArrayList<CalEvent>();
 		
+		
 		ContentResolver contentResolver = context.getContentResolver();
+		
+		// Calling the query
 		cursor = contentResolver.query(CalendarContract.Events.CONTENT_URI, COLS, null, null, null);
 		cursor.moveToFirst();
 		
+		// Getting the used DateFormat from the Android device
 		Format df = DateFormat.getDateFormat(context);
 		Format tf = DateFormat.getTimeFormat(context);
 		
 		Long start = 0L;
 
+		// Getting the current Date and Time
 		Date dat = new Date();
 		String today = df.format(dat.getTime());
 		
+		// Writing all the events to the eventlist
 		while (!cursor.isAfterLast()) {
 			start = cursor.getLong(0);
 			String st = df.format(start);
@@ -54,7 +61,8 @@ public class ReadCalendar {
 			cursor.moveToNext();
 			
 		}
-
+		
+		// Sorts eventlist by start time
 		Collections.sort(eventlist, new CustomComparator());
 		
 		return eventlist;
