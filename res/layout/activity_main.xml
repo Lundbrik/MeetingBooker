@@ -18,12 +18,13 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/newMeetingButton" />
     
-    <Button 
+    <Button
         android:id="@+id/newMeetingButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/text_newmeeting"
         android:layout_alignParentBottom="true"
-        android:onClick="startNewMeeting"/>
+        android:onClick="startNewMeeting"
+        android:text="@string/text_newmeeting"
+        android:textColor="@android:color/black" />
 
 </RelativeLayout>

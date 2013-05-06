@@ -16,7 +16,8 @@ public class ReadCalendar {
 	// The query used to get the events from the Android calendar
 	private static final String[] COLS = new String[] {
 		CalendarContract.Events.DTSTART, CalendarContract.Events.DTEND, 
-		CalendarContract.Events.TITLE, CalendarContract.Events.DESCRIPTION
+		CalendarContract.Events.TITLE, CalendarContract.Events.DESCRIPTION,
+		CalendarContract.Events._ID
 	};
 	
 	public static Cursor cursor;
@@ -50,13 +51,10 @@ public class ReadCalendar {
 			if (start < new Date().getTime()) {
 				stat = 1;
 			}
-			if (cursor.getLong(1) < new Date().getTime()) {
-				stat = -1;
-			}
-			if(today.equals(st)) {
+			if(today.equals(st) && !(cursor.getLong(1) < new Date().getTime())) {
 				eventlist.add(new CalEvent(cursor.getLong(0), cursor.getLong(1), 
 										   cursor.getString(2), cursor.getString(3),
-										   tf, stat));
+										   tf, stat, cursor.getString(4)));
 			}
 			cursor.moveToNext();
 			

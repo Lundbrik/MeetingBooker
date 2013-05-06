@@ -23,6 +23,8 @@ public class MainActivity extends Activity {
 	private static View mainView;
 	private static Context context;
 	private static final String TAG = MainActivity.class.getSimpleName();
+	private static ArrayList<CalEvent> eventlist = new ArrayList<CalEvent>();
+	private static ArrayAdapter<CalEvent> adapter;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +35,11 @@ public class MainActivity extends Activity {
 		textView = (TextView) findViewById(R.id.textView1);
 		mainView = (View) findViewById(R.id.mainLay);
 		context = getApplicationContext();
+		adapter = new ArrayAdapter<CalEvent>(MainActivity.context, 
+									 		 R.layout.list_black_text, 
+									 		 R.id.list_content,
+									 		 eventlist);
+		listView.setAdapter(adapter);
 		
 		// Timer for continuous update of calendar
 		Timer timer = new Timer();
@@ -82,7 +89,7 @@ public class MainActivity extends Activity {
 		CalEvent current = null;
 		
 		// Reads all events from the calendar on the present day into an ArrayList
-				ArrayList<CalEvent> eventlist = ReadCalendar.readCalendar(MainActivity.context);
+		eventlist = ReadCalendar.readCalendar(MainActivity.context);
 		
 		// Checks if any of the event in the ArrayList is underway, and sets it as current event
 		for (CalEvent ev : eventlist) {
@@ -105,15 +112,10 @@ public class MainActivity extends Activity {
 			textView.setTextSize(30);
 		}
 		
-		// Creates an ArrayAdapter to be used in creating the ListView of all the events in eventlist
-		ArrayAdapter<CalEvent> adapter = new ArrayAdapter<CalEvent>(
-	    		MainActivity.context, 
-	    		R.layout.list_black_text, 
-	    		R.id.list_content, 
-	    		eventlist);
-		
 		// Creates the listView
-		listView.setAdapter(adapter);
+		adapter.clear();
+		adapter.addAll(eventlist);
+		
 	}
 	
 	
