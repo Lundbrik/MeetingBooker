@@ -12,5 +12,6 @@
     <string name="text_cancel">Cancel</string>
     <string name="text_add">Add</string>
     <string name="text_newmeeting">New Meeting</string>
+    <string name="text_nextmeeting">Next Meeting</string>
 
 </resources>

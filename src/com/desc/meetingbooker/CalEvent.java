@@ -11,9 +11,9 @@ public class CalEvent {
 	private Format datF;
 	// status : 0 not started yet, 1 underway, -1 done
 	private int status;
-	private String id;
+	private long id;
 	
-	public CalEvent(long sT, long eT, String tit, String desc, Format tf, int stat, String id) {
+	public CalEvent(long sT, long eT, String tit, String desc, Format tf, int stat, long id) {
 		startTime = sT;
 		endTime = eT;
 		title = tit;
@@ -58,12 +58,12 @@ public class CalEvent {
 		return status;
 	}
 	
-	public String getId() {
+	public long getId() {
 		return this.id;
 	}
 	
 	public boolean equals(CalEvent e) {
-		return this.id.equals(e.getId());	
+		return this.id == e.getId();	
 	}
 	
 }

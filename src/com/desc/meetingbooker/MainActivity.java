@@ -25,6 +25,7 @@ public class MainActivity extends Activity {
 	private static final String TAG = MainActivity.class.getSimpleName();
 	private static ArrayList<CalEvent> eventlist = new ArrayList<CalEvent>();
 	private static ArrayAdapter<CalEvent> adapter;
+	private static CalEvent current = null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +78,10 @@ public class MainActivity extends Activity {
 		finish();
 	}
 	
+	public void startNextMeeting(View view) {
+		UpdateEvent.updateStart(current, context);
+	}
+	
 	public void startNewMeeting(View view) {
 		Log.d(TAG, "New Meeting button pressed");
 		// Creates NewMeetingActivity, for user input in booking a new meeting
@@ -86,7 +91,7 @@ public class MainActivity extends Activity {
 	
 	public static void sync() {
 		// The event that is currently underway
-		CalEvent current = null;
+		current = null;
 		
 		// Reads all events from the calendar on the present day into an ArrayList
 		eventlist = ReadCalendar.readCalendar(MainActivity.context);

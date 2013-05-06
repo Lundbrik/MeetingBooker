@@ -20,6 +20,8 @@ public class NewMeetingActivity extends Activity {
 	private static final String TAG = NewMeetingActivity.class.getSimpleName();
 	private TimePicker timeStart;
 	private TimePicker timeEnd;
+	private Date date = new Date();
+	private Calendar cal = Calendar.getInstance();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +35,11 @@ public class NewMeetingActivity extends Activity {
 		
 		// Sets the TimePickers to use 24 hour
 		timeStart.setIs24HourView(true);
+		timeStart.setCurrentHour(cal.get(Calendar.HOUR_OF_DAY));
+		timeStart.setCurrentMinute(cal.get(Calendar.MINUTE));
 		timeEnd.setIs24HourView(true);
+		timeEnd.setCurrentHour(cal.get(Calendar.HOUR_OF_DAY));
+		timeEnd.setCurrentMinute(cal.get(Calendar.MINUTE) + 15);
 	}
 
 	@Override
@@ -58,8 +64,6 @@ public class NewMeetingActivity extends Activity {
 		int endMin = timeEnd.getCurrentMinute();
 		
 		// Convert timePicker readings to long
-		Calendar cal = Calendar.getInstance();
-		Date date = new Date();
 		String startTime = cal.get(Calendar.DAY_OF_MONTH) + "-" + (cal.get(Calendar.MONTH) + 1) + "-" + cal.get(Calendar.YEAR) + " " + startHour + ":" + startMin;
 		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy hh:mm", Locale.getDefault());
 		try {

@@ -54,7 +54,7 @@ public class ReadCalendar {
 			if(today.equals(st) && !(cursor.getLong(1) < new Date().getTime())) {
 				eventlist.add(new CalEvent(cursor.getLong(0), cursor.getLong(1), 
 										   cursor.getString(2), cursor.getString(3),
-										   tf, stat, cursor.getString(4)));
+										   tf, stat, cursor.getLong(4)));
 			}
 			cursor.moveToNext();
 			

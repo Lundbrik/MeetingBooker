@@ -16,7 +16,16 @@
         android:id="@+id/listView1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/newMeetingButton" />
+        android:layout_above="@+id/nextMeetingButton" />
+    
+    <Button
+        android:id="@+id/nextMeetingButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/newMeetingButton"
+        android:onClick="startNextMeeting"
+        android:text="@string/text_nextmeeting"
+        android:textColor="@android:color/black"/>
     
     <Button
         android:id="@+id/newMeetingButton"
