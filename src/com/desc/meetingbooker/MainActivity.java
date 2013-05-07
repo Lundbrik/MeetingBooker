@@ -20,7 +20,10 @@ import android.widget.TextView;
 public class MainActivity extends Activity {
 	
 	private static ListView listView;
-	private static TextView textView;
+	private static TextView currentTitle;
+	private static TextView currentDesc;
+	private static TextView currentStart;
+	private static TextView currentEnd;
 	private static View mainView;
 	private static Context context;
 	private static final String TAG = MainActivity.class.getSimpleName();
@@ -35,11 +38,14 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		Log.d(TAG, "onCreate() called");
 		setContentView(R.layout.activity_main);
-		listView = (ListView) findViewById(R.id.listView1);
-		textView = (TextView) findViewById(R.id.textView1);
+		currentTitle = (TextView) findViewById(R.id.currentTitle);
+		currentDesc = (TextView) findViewById(R.id.currentDesc);
+		currentStart = (TextView) findViewById(R.id.currentStart);
+		currentEnd = (TextView) findViewById(R.id.currentEnd);
 		mainView = (View) findViewById(R.id.mainLay);
 		nextMeeting = (Button) findViewById(R.id.nextMeetingButton);
 		endMeeting = (Button) findViewById(R.id.endMeetingButton);
+		listView = (ListView) findViewById(R.id.listView1);
 		context = getApplicationContext();
 		adapter = new ArrayAdapter<CalEvent>(MainActivity.context, 
 									 		 R.layout.list_black_text, 
@@ -108,6 +114,13 @@ public class MainActivity extends Activity {
 		startActivity(intent);
 	}
 	
+	public static void setCurrent(CalEvent event) {
+		currentTitle.setText("Next Meeting : " + event.getTitle());
+		currentDesc.setText(event.getDescription());
+		currentStart.setText("Start : " + event.getStartTime());
+		currentEnd.setText(" End : " + event.getEndTime());
+	}
+	
 	public static void sync() {
 		// The event that is currently underway
 		current = null;
@@ -125,23 +138,17 @@ public class MainActivity extends Activity {
 			mainView.setBackgroundColor(Color.RED);
 			nextMeeting.setVisibility(Button.GONE);
 			endMeeting.setVisibility(Button.VISIBLE);
+			setCurrent(current);
 		} else {
 			mainView.setBackgroundColor(Color.GREEN);
 			if (current != null) {
 				nextMeeting.setVisibility(Button.VISIBLE);
 				endMeeting.setVisibility(Button.GONE);
+				setCurrent(current);
 			} else {
 				nextMeeting.setVisibility(Button.GONE);
 				endMeeting.setVisibility(Button.GONE);
 			}
-		}
-		
-		// Sets the displayed title if any event is underway
-		if (current != null) {
-			textView.setText(current.getTitle());
-			textView.setTextSize(30);
-		} else {
-			textView.setVisibility(View.INVISIBLE);
 		}
 		
 		// Creates the listView

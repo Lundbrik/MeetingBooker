@@ -66,4 +66,12 @@ public class CalEvent {
 		return this.id == e.getId();	
 	}
 	
+	public String getStartTime() {
+		return datF.format(startTime);
+	}
+	
+	public String getEndTime() {
+		return datF.format(endTime);
+	}
+	
 }
