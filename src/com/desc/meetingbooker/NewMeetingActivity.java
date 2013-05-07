@@ -61,11 +61,12 @@ public class NewMeetingActivity extends Activity {
 		int startHour = timeStart.getCurrentHour();
 		int startMin = timeStart.getCurrentMinute();
 		int endHour = timeEnd.getCurrentHour();
+		Log.d(TAG,"END " + endHour);
 		int endMin = timeEnd.getCurrentMinute();
 		
 		// Convert timePicker readings to long
 		String startTime = cal.get(Calendar.DAY_OF_MONTH) + "-" + (cal.get(Calendar.MONTH) + 1) + "-" + cal.get(Calendar.YEAR) + " " + startHour + ":" + startMin;
-		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy hh:mm", Locale.getDefault());
+		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault());
 		try {
 			date = formatter.parse(startTime);
 		} catch (Exception e) {
