@@ -20,6 +20,8 @@ import android.widget.TextView;
 public class MainActivity extends Activity {
 	
 	private static ListView listView;
+	private static TextView currentAvail;
+	private static TextView currentUpcom;
 	private static TextView currentTitle;
 	private static TextView currentDesc;
 	private static TextView currentStart;
@@ -38,6 +40,8 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		Log.d(TAG, "onCreate() called");
 		setContentView(R.layout.activity_main);
+		currentAvail = (TextView) findViewById(R.id.currentAvail);
+		currentUpcom = (TextView) findViewById(R.id.currentUpcom);
 		currentTitle = (TextView) findViewById(R.id.currentTitle);
 		currentDesc = (TextView) findViewById(R.id.currentDesc);
 		currentStart = (TextView) findViewById(R.id.currentStart);
@@ -115,7 +119,7 @@ public class MainActivity extends Activity {
 	}
 	
 	public static void setCurrent(CalEvent event) {
-		currentTitle.setText("Next Meeting : " + event.getTitle());
+		currentTitle.setText(event.getTitle());
 		currentDesc.setText(event.getDescription());
 		currentStart.setText("Start : " + event.getStartTime());
 		currentEnd.setText(" End : " + event.getEndTime());
@@ -136,11 +140,15 @@ public class MainActivity extends Activity {
 		// Sets the background color(Red if any event is underway, green if not)
 		if (current != null && current.isUnderway()) {
 			mainView.setBackgroundColor(Color.RED);
+			currentAvail.setText("Taken");
+			currentUpcom.setText("Current Meeting:");
 			nextMeeting.setVisibility(Button.GONE);
 			endMeeting.setVisibility(Button.VISIBLE);
 			setCurrent(current);
 		} else {
 			mainView.setBackgroundColor(Color.GREEN);
+			currentAvail.setText("Available");
+			currentUpcom.setText("Upcoming Meeting:");
 			if (current != null) {
 				nextMeeting.setVisibility(Button.VISIBLE);
 				endMeeting.setVisibility(Button.GONE);

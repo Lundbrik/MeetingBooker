@@ -13,27 +13,50 @@
         android:layout_centerHorizontal="true" >
         
         <TextView
+	        android:id="@+id/currentAvail"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerHorizontal="true"
+	        android:textSize="70sp" />
+        
+        <TextView
+	        android:id="@+id/currentUpcom"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerHorizontal="true"
+	        android:textSize="30sp"
+	        android:layout_below="@+id/currentAvail" />
+        
+        <TextView
 	        android:id="@+id/currentTitle"
 	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content" />
+	        android:layout_height="wrap_content"
+	        android:layout_centerHorizontal="true"
+	        android:textSize="30sp"
+	        android:layout_below="@+id/currentUpcom" />
         
         <TextView 
             android:id="@+id/currentDesc"
             android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:layout_below="@+id/currentTitle" />
+	        android:layout_below="@+id/currentTitle"
+	        android:layout_centerHorizontal="true" />
         
         <TextView 
             android:id="@+id/currentStart"
             android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:layout_below="@+id/currentDesc" />
+	        android:layout_below="@+id/currentDesc"
+	        android:layout_marginLeft="200dp"
+	        android:textSize="20sp"/>
         
         <TextView 
             android:id="@+id/currentEnd"
             android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:layout_below="@+id/currentDesc" />
+	        android:layout_below="@+id/currentDesc"
+	        android:layout_marginLeft="300dp"
+	        android:textSize="20sp" />
         
         <Button
 	        android:id="@+id/nextMeetingButton"
