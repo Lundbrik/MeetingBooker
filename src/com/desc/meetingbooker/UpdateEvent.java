@@ -12,18 +12,25 @@ import android.provider.CalendarContract.Events;
 public class UpdateEvent {
 	
 	public static void updateStart(CalEvent event, Context context) {
-		// UPDATE
+		// Update events start time
 		ContentResolver cr = context.getContentResolver();
 		ContentValues cv = new ContentValues();
 		Uri uri = null;
 		cv.put(Events.DTSTART, new Date().getTime());
 		uri = ContentUris.withAppendedId(Events.CONTENT_URI, event.getId());
-		int rows = cr.update(uri, cv, null, null);
+		cr.update(uri, cv, null, null);
 		MainActivity.sync();
 	}
 	
-	public static void updateEnd(CalEvent event) {
-		// UPDATE
+	public static void updateEnd(CalEvent event, Context context) {
+		// Update events end time
+		ContentResolver cr = context.getContentResolver();
+		ContentValues cv = new ContentValues();
+		Uri uri = null;
+		cv.put(Events.DTEND, new Date().getTime());
+		uri = ContentUris.withAppendedId(Events.CONTENT_URI, event.getId());
+		cr.update(uri, cv, null, null);
+		MainActivity.sync();
 	}
 
 }

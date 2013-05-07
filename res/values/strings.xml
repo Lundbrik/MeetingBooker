@@ -13,5 +13,6 @@
     <string name="text_add">Add</string>
     <string name="text_newmeeting">New Meeting</string>
     <string name="text_nextmeeting">Next Meeting</string>
+    <string name="text_endmeeting">End Meeting</string>
 
 </resources>

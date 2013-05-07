@@ -47,14 +47,14 @@ public class ReadCalendar {
 		while (!cursor.isAfterLast()) {
 			start = cursor.getLong(0);
 			String st = df.format(start);
-			int stat = 0;
+			boolean isUnderway = false;
 			if (start < new Date().getTime()) {
-				stat = 1;
+				isUnderway = true;
 			}
 			if(today.equals(st) && !(cursor.getLong(1) < new Date().getTime())) {
 				eventlist.add(new CalEvent(cursor.getLong(0), cursor.getLong(1), 
 										   cursor.getString(2), cursor.getString(3),
-										   tf, stat, cursor.getLong(4)));
+										   tf, isUnderway, cursor.getLong(4)));
 			}
 			cursor.moveToNext();
 			

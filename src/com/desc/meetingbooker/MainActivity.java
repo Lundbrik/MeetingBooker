@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -26,6 +27,8 @@ public class MainActivity extends Activity {
 	private static ArrayList<CalEvent> eventlist = new ArrayList<CalEvent>();
 	private static ArrayAdapter<CalEvent> adapter;
 	private static CalEvent current = null;
+	private static Button nextMeeting;
+	private static Button endMeeting;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,11 +38,18 @@ public class MainActivity extends Activity {
 		listView = (ListView) findViewById(R.id.listView1);
 		textView = (TextView) findViewById(R.id.textView1);
 		mainView = (View) findViewById(R.id.mainLay);
+		nextMeeting = (Button) findViewById(R.id.nextMeetingButton);
+		endMeeting = (Button) findViewById(R.id.endMeetingButton);
 		context = getApplicationContext();
 		adapter = new ArrayAdapter<CalEvent>(MainActivity.context, 
 									 		 R.layout.list_black_text, 
 									 		 R.id.list_content,
-									 		 eventlist);
+									 		 eventlist) {
+			@Override
+			public boolean isEnabled(int position) {
+				return false;
+			}
+		};
 		listView.setAdapter(adapter);
 		
 		// Timer for continuous update of calendar
@@ -78,8 +88,17 @@ public class MainActivity extends Activity {
 		finish();
 	}
 	
+	@Override
+	protected void onActivityResult(int requestcode, int resultcode, Intent data) {
+		startActivity(new Intent(this,MainActivity.class));
+	}
+	
 	public void startNextMeeting(View view) {
 		UpdateEvent.updateStart(current, context);
+	}
+	
+	public void endMeeting(View view) {
+		UpdateEvent.updateEnd(current, context);
 	}
 	
 	public void startNewMeeting(View view) {
@@ -97,24 +116,32 @@ public class MainActivity extends Activity {
 		eventlist = ReadCalendar.readCalendar(MainActivity.context);
 		
 		// Checks if any of the event in the ArrayList is underway, and sets it as current event
-		for (CalEvent ev : eventlist) {
-			if (ev.getStatus() >= 0) {
-				current = ev;
-				break;
-			}
+		if (!eventlist.isEmpty()) {
+			current = eventlist.get(0);
 		}
 		
 		// Sets the background color(Red if any event is underway, green if not)
-		if (current != null && current.getStatus() == 1) {
+		if (current != null && current.isUnderway()) {
 			mainView.setBackgroundColor(Color.RED);
+			nextMeeting.setVisibility(Button.GONE);
+			endMeeting.setVisibility(Button.VISIBLE);
 		} else {
 			mainView.setBackgroundColor(Color.GREEN);
+			if (current != null) {
+				nextMeeting.setVisibility(Button.VISIBLE);
+				endMeeting.setVisibility(Button.GONE);
+			} else {
+				nextMeeting.setVisibility(Button.GONE);
+				endMeeting.setVisibility(Button.GONE);
+			}
 		}
 		
 		// Sets the displayed title if any event is underway
 		if (current != null) {
 			textView.setText(current.getTitle());
 			textView.setTextSize(30);
+		} else {
+			textView.setVisibility(View.INVISIBLE);
 		}
 		
 		// Creates the listView
