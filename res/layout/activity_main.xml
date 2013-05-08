@@ -40,29 +40,36 @@
             android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_below="@+id/currentTitle"
+	        android:textSize="20sp"
 	        android:layout_centerHorizontal="true" />
         
-        <TextView 
-            android:id="@+id/currentStart"
+        <RelativeLayout 
+            android:id="@+id/startEndLay"
             android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_below="@+id/currentDesc"
-	        android:layout_marginLeft="200dp"
-	        android:textSize="20sp"/>
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/currentDesc" >
         
-        <TextView 
-            android:id="@+id/currentEnd"
-            android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_below="@+id/currentDesc"
-	        android:layout_marginLeft="300dp"
-	        android:textSize="20sp" />
+	        <TextView 
+	            android:id="@+id/currentStart"
+	            android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:textSize="20sp" />
+	        
+	        <TextView 
+	            android:id="@+id/currentEnd"
+	            android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:textSize="20sp"
+		        android:layout_toRightOf="@+id/currentStart" />
+        
+        </RelativeLayout>
         
         <Button
 	        android:id="@+id/nextMeetingButton"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
-	        android:layout_below="@+id/currentEnd"
+	        android:layout_below="@+id/startEndLay"
 	        android:onClick="startNextMeeting"
 	        android:text="@string/text_nextmeeting"
 	        android:textColor="@android:color/black"/>
@@ -71,10 +78,10 @@
 	        android:id="@+id/endMeetingButton"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
-	        android:layout_below="@+id/currentEnd"
+	        android:layout_below="@+id/startEndLay"
 	        android:onClick="endMeeting"
 	        android:text="@string/text_endmeeting"
-	        android:textColor="@android:color/black"/>
+	        android:textColor="@android:color/black" />
         
     </RelativeLayout>
     
