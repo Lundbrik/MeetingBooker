@@ -114,7 +114,7 @@ public class MainActivity extends Activity {
 		Log.d(TAG, "New Meeting button pressed");
 		// Creates NewMeetingActivity, for user input in booking a new meeting
 		Intent intent = new Intent(this, NewMeetingActivity.class);
-		startActivity(intent);
+		startActivityForResult(intent, 1);
 	}
 	
 	public static void setCurrent(CalEvent event) {
