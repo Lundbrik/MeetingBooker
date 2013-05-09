@@ -88,6 +88,7 @@ public class MainActivity extends Activity {
 	
 	@Override
 	public void onResume() {
+		Log.d(TAG, "onResume()");
 		super.onResume();
 		MainActivity.sync();
 	}
@@ -99,7 +100,7 @@ public class MainActivity extends Activity {
 	
 	@Override
 	protected void onActivityResult(int requestcode, int resultcode, Intent data) {
-		startActivity(new Intent(this,MainActivity.class));
+		//startActivity(new Intent(this,MainActivity.class));
 	}
 	
 	public void startNextMeeting(View view) {

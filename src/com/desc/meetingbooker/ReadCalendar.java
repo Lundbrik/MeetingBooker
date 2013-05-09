@@ -30,7 +30,7 @@ public class ReadCalendar {
 		ContentResolver contentResolver = context.getContentResolver();
 		
 		// Calling the query
-		cursor = contentResolver.query(CalendarContract.Events.CONTENT_URI, COLS, null, null, null);
+		cursor = contentResolver.query(CalendarContract.Events.CONTENT_URI, COLS, "CALENDAR_ID = 1", null, null);
 		cursor.moveToFirst();
 		
 		// Getting the used DateFormat from the Android device

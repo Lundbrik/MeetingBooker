@@ -8,7 +8,6 @@ import java.util.Locale;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -85,16 +84,13 @@ public class NewMeetingActivity extends Activity {
 		CalEvent event = new CalEvent(start,end,title,desc);
 		Context context = getApplicationContext();
 		EventCreate.instance.setNewEvent(event, context);
-		Intent intent = new Intent(this, MainActivity.class);
-		startActivity(intent);
 		Log.d(TAG, "event inserted");
+		finish();
 	}
 	
 	public void cancel(View view) {
 		Log.d(TAG, "Cancel button pressed");
 		finish();
-		/*Intent intent = new Intent(this, MainActivity.class);
-		startActivity(intent);*/
 	}
 
 }
