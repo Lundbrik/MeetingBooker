@@ -125,6 +125,24 @@ public class MainActivity extends Activity {
 		currentEnd.setText(" End : " + event.getEndTime());
 	}
 	
+	private static void curShow(boolean val) {
+		if (val) {
+			currentUpcom.setVisibility(TextView.VISIBLE);
+			currentTitle.setVisibility(TextView.VISIBLE);
+			currentDesc.setVisibility(TextView.VISIBLE);
+			currentStart.setVisibility(TextView.VISIBLE);
+			currentEnd.setVisibility(TextView.VISIBLE);
+		} else {
+			currentUpcom.setVisibility(TextView.GONE);
+			currentTitle.setVisibility(TextView.GONE);
+			currentDesc.setVisibility(TextView.GONE);
+			currentStart.setVisibility(TextView.GONE);
+			currentEnd.setVisibility(TextView.GONE);
+			nextMeeting.setVisibility(Button.GONE);
+			endMeeting.setVisibility(Button.GONE);
+		}
+	}
+	
 	public static void sync() {
 		// The event that is currently underway
 		current = null;
@@ -145,6 +163,7 @@ public class MainActivity extends Activity {
 			nextMeeting.setVisibility(Button.GONE);
 			endMeeting.setVisibility(Button.VISIBLE);
 			setCurrent(current);
+			curShow(true);
 		} else {
 			mainView.setBackgroundColor(Color.GREEN);
 			currentAvail.setText("Available");
@@ -153,9 +172,9 @@ public class MainActivity extends Activity {
 				nextMeeting.setVisibility(Button.VISIBLE);
 				endMeeting.setVisibility(Button.GONE);
 				setCurrent(current);
+				curShow(true);
 			} else {
-				nextMeeting.setVisibility(Button.GONE);
-				endMeeting.setVisibility(Button.GONE);
+				curShow(false);
 			}
 		}
 		

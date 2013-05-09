@@ -3,11 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".NewMeetingActivity" >
-    <LinearLayout 
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:layout_width="0dp"
-        android:layout_height="0dp"/>
 
     <TextView
         android:id="@+id/titleTextView"
@@ -73,21 +68,21 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textStart" />
-
+    
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/addButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:text="@string/text_cancel" 
-        android:onClick="cancel"/>
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/button1"
+        android:layout_below="@+id/timePickerStart"
         android:text="@string/text_add"
         android:onClick="add" />
+
+    <Button
+        android:id="@+id/cancelButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/addButton"
+        android:text="@string/text_cancel" 
+        android:onClick="cancel"/>
 
 </RelativeLayout>
