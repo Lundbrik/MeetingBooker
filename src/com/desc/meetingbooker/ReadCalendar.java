@@ -17,7 +17,7 @@ public class ReadCalendar {
 	private static final String[] COLS = new String[] {
 		CalendarContract.Events.DTSTART, CalendarContract.Events.DTEND, 
 		CalendarContract.Events.TITLE, CalendarContract.Events.DESCRIPTION,
-		CalendarContract.Events._ID
+		CalendarContract.Events._ID, CalendarContract.Events.ORGANIZER
 	};
 	
 	public static Cursor cursor;
@@ -54,7 +54,7 @@ public class ReadCalendar {
 			if(today.equals(st) && !(cursor.getLong(1) < new Date().getTime())) {
 				eventlist.add(new CalEvent(cursor.getLong(0), cursor.getLong(1), 
 										   cursor.getString(2), cursor.getString(3),
-										   tf, isUnderway, cursor.getLong(4)));
+										   tf, isUnderway, cursor.getLong(4), cursor.getString(5)));
 			}
 			cursor.moveToNext();
 			

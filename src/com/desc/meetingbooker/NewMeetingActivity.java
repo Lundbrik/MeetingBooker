@@ -8,6 +8,7 @@ import java.util.Locale;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -20,7 +21,7 @@ public class NewMeetingActivity extends Activity {
 	private TimePicker timeStart;
 	private TimePicker timeEnd;
 	private Date date = new Date();
-	private Calendar cal = Calendar.getInstance();
+	//private Calendar cal = Calendar.getInstance();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,13 +33,7 @@ public class NewMeetingActivity extends Activity {
 		timeStart = (TimePicker) findViewById(R.id.timePickerStart);
 		timeEnd = (TimePicker) findViewById(R.id.timePickerEnd);
 		
-		// Sets the TimePickers to use 24 hour
-		timeStart.setIs24HourView(true);
-		timeStart.setCurrentHour(cal.get(Calendar.HOUR_OF_DAY));
-		timeStart.setCurrentMinute(cal.get(Calendar.MINUTE));
-		timeEnd.setIs24HourView(true);
-		timeEnd.setCurrentHour(cal.get(Calendar.HOUR_OF_DAY));
-		timeEnd.setCurrentMinute(cal.get(Calendar.MINUTE) + 15);
+		setTimePickers();
 	}
 
 	@Override
@@ -64,7 +59,7 @@ public class NewMeetingActivity extends Activity {
 		int endMin = timeEnd.getCurrentMinute();
 		
 		// Convert timePicker readings to long
-		String startTime = cal.get(Calendar.DAY_OF_MONTH) + "-" + (cal.get(Calendar.MONTH) + 1) + "-" + cal.get(Calendar.YEAR) + " " + startHour + ":" + startMin;
+		String startTime = Calendar.DAY_OF_MONTH + "-" + (Calendar.MONTH + 1) + "-" +Calendar.YEAR + " " + startHour + ":" + startMin;
 		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault());
 		try {
 			date = formatter.parse(startTime);
@@ -72,7 +67,7 @@ public class NewMeetingActivity extends Activity {
 			Log.e(TAG, e.getMessage());
 		}
 		long start = date.getTime();
-		String endTime = cal.get(Calendar.DAY_OF_MONTH) + "-" + (cal.get(Calendar.MONTH) + 1) + "-" + cal.get(Calendar.YEAR) + " " + endHour + ":" + endMin;
+		String endTime = Calendar.DAY_OF_MONTH + "-" + Calendar.MONTH + 1 + "-" + Calendar.YEAR + " " + endHour + ":" + endMin;
 		try {
 			date = formatter.parse(endTime);
 		} catch (Exception e) {
@@ -91,6 +86,37 @@ public class NewMeetingActivity extends Activity {
 	public void cancel(View view) {
 		Log.d(TAG, "Cancel button pressed");
 		finish();
+	}
+	
+	private void setTimePickers() {
+		
+		CalEvent current = MainActivity.current;
+		// Sets the TimePickers to use 24 hour
+		timeStart.setIs24HourView(true);
+		timeEnd.setIs24HourView(true);
+		
+		if (current == null) {
+			timeStart.setCurrentHour(Calendar.HOUR_OF_DAY);
+			timeStart.setCurrentMinute(Calendar.MINUTE);
+		
+			timeEnd.setCurrentHour(Calendar.HOUR_OF_DAY + 1);
+			timeEnd.setCurrentMinute(Calendar.MINUTE);
+		} else if (current.isUnderway()) {
+			String hour = new SimpleDateFormat("HH").format(new Date(current.getEnd()));
+			String minute = new SimpleDateFormat("mm").format(new Date(current.getEnd()));
+			timeStart.setCurrentHour(Integer.parseInt(hour));
+			timeStart.setCurrentMinute(Integer.parseInt(minute));
+		
+			timeEnd.setCurrentHour(Integer.parseInt(hour) + 1);
+			timeEnd.setCurrentMinute(Integer.parseInt(minute));
+		} else {
+			timeStart.setCurrentHour(Calendar.HOUR_OF_DAY);
+			timeStart.setCurrentMinute(Calendar.MINUTE);
+		
+			timeEnd.setCurrentHour(Calendar.HOUR_OF_DAY + 1);
+			timeEnd.setCurrentMinute(Calendar.MINUTE);
+		}
+			
 	}
 
 }

@@ -8,12 +8,12 @@ public class CalEvent {
 	private Long endTime;
 	private String title;
 	private String description;
+	private String organizer;
 	private Format datF;
-	// status : 0 not started yet, 1 underway, -1 done
 	private boolean isUnderway;
 	private long id;
 	
-	public CalEvent(long sT, long eT, String tit, String desc, Format tf, boolean iU, long id) {
+	public CalEvent(long sT, long eT, String tit, String desc, Format tf, boolean iU, long id, String organizer) {
 		startTime = sT;
 		endTime = eT;
 		title = tit;
@@ -21,6 +21,7 @@ public class CalEvent {
 		datF = tf;
 		isUnderway = iU;
 		this.id = id;
+		this.organizer = organizer;
 	}
 	
 	public CalEvent(long sT, long eT, String tit, String desc) {
@@ -46,12 +47,17 @@ public class CalEvent {
 		return description;
 	}
 	
+	public String getOrganizer() {
+		return organizer;
+	}
+	
 	public String toString() {
 		return "Title : " + title + "\n" +
 			   "Start : " + datF.format(startTime) + "\n" +
 			   "End : " + datF.format(endTime) + "\n" + 
 			   "Description : " + description + "\n" +
-			   "isUnderway : " + isUnderway;
+			   "isUnderway : " + isUnderway + "\n" + 
+			   "Organizer : " + organizer;
 	}
 	
 	public boolean isUnderway() {

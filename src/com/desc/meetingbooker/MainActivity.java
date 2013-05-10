@@ -1,6 +1,7 @@
 package com.desc.meetingbooker;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -29,9 +30,9 @@ public class MainActivity extends Activity {
 	private static View mainView;
 	private static Context context;
 	private static final String TAG = MainActivity.class.getSimpleName();
-	private static ArrayList<CalEvent> eventlist = new ArrayList<CalEvent>();
+	protected static ArrayList<CalEvent> eventlist = new ArrayList<CalEvent>();
 	private static ArrayAdapter<CalEvent> adapter;
-	private static CalEvent current = null;
+	protected static CalEvent current = null;
 	private static Button nextMeeting;
 	private static Button endMeeting;
 	
@@ -140,6 +141,13 @@ public class MainActivity extends Activity {
 			currentEnd.setVisibility(TextView.GONE);
 			nextMeeting.setVisibility(Button.GONE);
 			endMeeting.setVisibility(Button.GONE);
+		}
+	}
+	
+	private static void currentOvertime() {
+		Long currentTime = new Date().getTime();
+		if (current.getEnd() <= currentTime) {
+			
 		}
 	}
 	
