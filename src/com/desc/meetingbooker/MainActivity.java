@@ -146,8 +146,9 @@ public class MainActivity extends Activity {
 	
 	private static void currentOvertime() {
 		Long currentTime = new Date().getTime();
-		if (current.getEnd() <= currentTime) {
-			
+		if (current.getEnd() <= currentTime && !current.getOverTime()) {
+			UpdateEvent.updateEnd(current, context, 15);
+			current.setOverTime();
 		}
 	}
 	

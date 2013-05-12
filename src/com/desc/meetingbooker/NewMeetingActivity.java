@@ -6,9 +6,9 @@ import java.util.Date;
 import java.util.Locale;
 
 import android.os.Bundle;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -88,33 +88,49 @@ public class NewMeetingActivity extends Activity {
 		finish();
 	}
 	
+	@SuppressLint("SimpleDateFormat")
 	private void setTimePickers() {
-		
 		CalEvent current = MainActivity.current;
+		int calHour = Calendar.HOUR_OF_DAY;
+		int calMinute = Calendar.MINUTE;
 		// Sets the TimePickers to use 24 hour
 		timeStart.setIs24HourView(true);
 		timeEnd.setIs24HourView(true);
-		
+
 		if (current == null) {
-			timeStart.setCurrentHour(Calendar.HOUR_OF_DAY);
-			timeStart.setCurrentMinute(Calendar.MINUTE);
+			timeStart.setCurrentHour(calHour);
+			timeStart.setCurrentMinute(calMinute);
 		
-			timeEnd.setCurrentHour(Calendar.HOUR_OF_DAY + 1);
-			timeEnd.setCurrentMinute(Calendar.MINUTE);
+			timeEnd.setCurrentHour(calHour + 1);
+			timeEnd.setCurrentMinute(calMinute);
 		} else if (current.isUnderway()) {
-			String hour = new SimpleDateFormat("HH").format(new Date(current.getEnd()));
-			String minute = new SimpleDateFormat("mm").format(new Date(current.getEnd()));
-			timeStart.setCurrentHour(Integer.parseInt(hour));
-			timeStart.setCurrentMinute(Integer.parseInt(minute));
+			int hour = Integer.parseInt(new SimpleDateFormat("HH").format(new Date(current.getEnd())));
+			int minute = Integer.parseInt(new SimpleDateFormat("mm").format(new Date(current.getEnd())));
+						
+			timeStart.setCurrentHour(hour);
+			timeStart.setCurrentMinute(minute);
 		
-			timeEnd.setCurrentHour(Integer.parseInt(hour) + 1);
-			timeEnd.setCurrentMinute(Integer.parseInt(minute));
+			timeEnd.setCurrentHour(hour + 1);
+			timeEnd.setCurrentMinute(minute);
 		} else {
-			timeStart.setCurrentHour(Calendar.HOUR_OF_DAY);
-			timeStart.setCurrentMinute(Calendar.MINUTE);
-		
-			timeEnd.setCurrentHour(Calendar.HOUR_OF_DAY + 1);
-			timeEnd.setCurrentMinute(Calendar.MINUTE);
+			int hour = Integer.parseInt(new SimpleDateFormat("HH").format(new Date(current.getEnd())));
+			int minute = Integer.parseInt(new SimpleDateFormat("mm").format(new Date(current.getEnd())));
+			
+			if ((hour * 60 + minute) >= (calHour * 60 + calMinute + 30)) {
+				timeStart.setCurrentHour(calHour);
+				timeStart.setCurrentMinute(calMinute);
+			
+				timeEnd.setCurrentHour(hour);
+				timeEnd.setCurrentMinute(minute);			
+			} else {
+				timeStart.setCurrentHour(hour);
+				timeStart.setCurrentMinute(minute);
+			
+				timeEnd.setCurrentHour(hour + 1);
+				timeEnd.setCurrentMinute(minute);
+			}
+			
+			
 		}
 			
 	}

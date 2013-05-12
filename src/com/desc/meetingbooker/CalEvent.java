@@ -12,6 +12,7 @@ public class CalEvent {
 	private Format datF;
 	private boolean isUnderway;
 	private long id;
+	private boolean isOverTime = false;
 	
 	public CalEvent(long sT, long eT, String tit, String desc, Format tf, boolean iU, long id, String organizer) {
 		startTime = sT;
@@ -78,6 +79,14 @@ public class CalEvent {
 	
 	public String getEndTime() {
 		return datF.format(endTime);
+	}
+	
+	public void setOverTime() {
+		isOverTime = true;
+	}
+	
+	public boolean getOverTime() {
+		return isOverTime;
 	}
 	
 }

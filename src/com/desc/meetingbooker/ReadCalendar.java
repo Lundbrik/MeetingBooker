@@ -52,9 +52,16 @@ public class ReadCalendar {
 				isUnderway = true;
 			}
 			if(today.equals(st) && !(cursor.getLong(1) < new Date().getTime())) {
-				eventlist.add(new CalEvent(cursor.getLong(0), cursor.getLong(1), 
-										   cursor.getString(2), cursor.getString(3),
-										   tf, isUnderway, cursor.getLong(4), cursor.getString(5)));
+				eventlist.add(new CalEvent(
+											cursor.getLong(0), 		// Start time
+											cursor.getLong(1), 		// End Time
+											cursor.getString(2), 	// Title
+											cursor.getString(3),	// Description
+											tf, 					// TimeFormat
+											isUnderway, 			// Is underway
+											cursor.getLong(4), 		// Event ID
+											cursor.getString(5)		// Organizer
+											));
 			}
 			cursor.moveToNext();
 			
