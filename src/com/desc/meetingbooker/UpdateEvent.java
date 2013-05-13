@@ -33,15 +33,14 @@ public class UpdateEvent {
 		MainActivity.sync();
 	}
 	
-	public static void updateEnd(CalEvent event, Context context, int minutes) {
+	public static void updateEnd(CalEvent event, Context context, long time) {
 		// Update events end time
 		ContentResolver cr = context.getContentResolver();
 		ContentValues cv = new ContentValues();
 		Uri uri = null;
-		cv.put(Events.DTEND, (new Date().getTime()) + (minutes * 60000));
+		cv.put(Events.DTEND, time);
 		uri = ContentUris.withAppendedId(Events.CONTENT_URI, event.getId());
 		cr.update(uri, cv, null, null);
-		MainActivity.sync();
 	}
 
 }

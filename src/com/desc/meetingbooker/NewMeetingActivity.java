@@ -21,7 +21,7 @@ public class NewMeetingActivity extends Activity {
 	private TimePicker timeStart;
 	private TimePicker timeEnd;
 	private Date date = new Date();
-	//private Calendar cal = Calendar.getInstance();
+	private Calendar cal = Calendar.getInstance();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -59,15 +59,16 @@ public class NewMeetingActivity extends Activity {
 		int endMin = timeEnd.getCurrentMinute();
 		
 		// Convert timePicker readings to long
-		String startTime = Calendar.DAY_OF_MONTH + "-" + (Calendar.MONTH + 1) + "-" +Calendar.YEAR + " " + startHour + ":" + startMin;
+		String startTime = cal.get(Calendar.DAY_OF_MONTH) + "-" + (cal.get(Calendar.MONTH) + 1) + "-" + cal.get(Calendar.YEAR) + " " + startHour + ":" + startMin;
 		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault());
 		try {
 			date = formatter.parse(startTime);
+			Log.d(TAG, startTime);
 		} catch (Exception e) {
 			Log.e(TAG, e.getMessage());
 		}
 		long start = date.getTime();
-		String endTime = Calendar.DAY_OF_MONTH + "-" + Calendar.MONTH + 1 + "-" + Calendar.YEAR + " " + endHour + ":" + endMin;
+		String endTime = cal.get(Calendar.DAY_OF_MONTH) + "-" + (cal.get(Calendar.MONTH) + 1) + "-" + cal.get(Calendar.YEAR) + " " + endHour + ":" + endMin;
 		try {
 			date = formatter.parse(endTime);
 		} catch (Exception e) {
@@ -91,8 +92,8 @@ public class NewMeetingActivity extends Activity {
 	@SuppressLint("SimpleDateFormat")
 	private void setTimePickers() {
 		CalEvent current = MainActivity.current;
-		int calHour = Calendar.HOUR_OF_DAY;
-		int calMinute = Calendar.MINUTE;
+		int calHour = cal.get(Calendar.HOUR_OF_DAY);
+		int calMinute = cal.get(Calendar.MINUTE);
 		// Sets the TimePickers to use 24 hour
 		timeStart.setIs24HourView(true);
 		timeEnd.setIs24HourView(true);

@@ -10,8 +10,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.provider.CalendarContract;
 import android.text.format.DateFormat;
+import android.util.Log;
 
 public class ReadCalendar {
+	
+	private static String TAG = ReadCalendar.class.getSimpleName();
 	
 	// The query used to get the events from the Android calendar
 	private static final String[] COLS = new String[] {
@@ -66,6 +69,7 @@ public class ReadCalendar {
 			cursor.moveToNext();
 			
 		}
+		cursor.close();
 		
 		// Sorts eventlist by start time
 		Collections.sort(eventlist, new CustomComparator());

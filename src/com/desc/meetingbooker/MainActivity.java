@@ -35,6 +35,7 @@ public class MainActivity extends Activity {
 	protected static CalEvent current = null;
 	private static Button nextMeeting;
 	private static Button endMeeting;
+	private static boolean isOverTime = false;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +77,7 @@ public class MainActivity extends Activity {
 					}
 				});
 			}
-		}, 30000, 30000);
+		}, 10, 5000);
 		Log.d(TAG, "onCreate() done");
 	}
 
@@ -145,14 +146,46 @@ public class MainActivity extends Activity {
 	}
 	
 	private static void currentOvertime() {
-		Long currentTime = new Date().getTime();
-		if (current.getEnd() <= currentTime && !current.getOverTime()) {
-			UpdateEvent.updateEnd(current, context, 15);
-			current.setOverTime();
+		Long currentTime = new Date().getTime() + 60000;
+		if (current != null && !isOverTime && current.getEnd() <= currentTime) {
+			Log.d(TAG, "update current! " + isOverTime);
+			UpdateEvent.updateEnd(current, context, findExtendedTimeWindow());
+			isOverTime = true;
+			Log.d(TAG, "update current! " + isOverTime);
 		}
 	}
 	
+	private static long findExtendedTimeWindow() {
+		if (!eventlist.isEmpty()) {
+			long interval = eventlist.get(0).getStart() - current.getEnd();
+			if (interval < (60000 * 16)) {
+				return eventlist.get(0).getStart();
+			}
+		}
+		return current.getEnd() + (60000 * 16);
+	}
+	
+	/*private static TimeWindow findTimeWindow() {
+		CalEvent start;
+		CalEvent end;
+		long interval;
+		for (int i = 0; i < eventlist.size(); i++) {
+			if (i == 0) {
+				start = current;
+			} else {
+				start = eventlist.get(i);
+			}
+			end = eventlist.get(i+1);
+			interval = end.getStart() - start.getEnd();
+			if (interval > (60000 * 15)) {
+				
+			}
+		}
+	}*/
+	
 	public static void sync() {
+		currentOvertime();
+		
 		// The event that is currently underway
 		current = null;
 		
@@ -162,6 +195,7 @@ public class MainActivity extends Activity {
 		// Checks if any of the event in the ArrayList is underway, and sets it as current event
 		if (!eventlist.isEmpty()) {
 			current = eventlist.get(0);
+			eventlist.remove(0);
 		}
 		
 		// Sets the background color(Red if any event is underway, green if not)
@@ -177,6 +211,7 @@ public class MainActivity extends Activity {
 			mainView.setBackgroundColor(Color.GREEN);
 			currentAvail.setText("Available");
 			currentUpcom.setText("Upcoming Meeting:");
+			isOverTime = false;
 			if (current != null) {
 				nextMeeting.setVisibility(Button.VISIBLE);
 				endMeeting.setVisibility(Button.GONE);
