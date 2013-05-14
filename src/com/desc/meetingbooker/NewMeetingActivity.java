@@ -13,6 +13,8 @@ import android.content.Context;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TimePicker;
 
@@ -29,6 +31,8 @@ public class NewMeetingActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		Log.d(TAG, "called onCreate()");
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.activity_new_meeting);
 		
 		eventlist = MainActivity.eventlist;

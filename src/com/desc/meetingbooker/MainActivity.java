@@ -13,6 +13,8 @@ import android.graphics.Color;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -42,6 +44,8 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Log.d(TAG, "onCreate() called");
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.activity_main);
 		currentAvail = (TextView) findViewById(R.id.currentAvail);
 		currentUpcom = (TextView) findViewById(R.id.currentUpcom);
@@ -65,6 +69,8 @@ public class MainActivity extends Activity {
 			}
 		};
 		listView.setAdapter(adapter);
+		
+		
 		
 		// Timer for continuous update of calendar
 		Timer timer = new Timer();
