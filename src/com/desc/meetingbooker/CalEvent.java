@@ -18,7 +18,11 @@ public class CalEvent {
 		startTime = sT;
 		endTime = eT;
 		title = tit;
-		description = desc;
+		if (desc.equals("")) {
+			description = "(no description)";
+		} else {
+			description = desc;
+		}
 		datF = tf;
 		isUnderway = iU;
 		this.id = id;

@@ -24,6 +24,7 @@ public class MainActivity extends Activity {
 	private static TextView currentAvail;
 	private static TextView currentUpcom;
 	private static TextView currentTitle;
+	private static TextView currentOrganizer;
 	private static TextView currentDesc;
 	private static TextView currentStart;
 	private static TextView currentEnd;
@@ -45,6 +46,7 @@ public class MainActivity extends Activity {
 		currentAvail = (TextView) findViewById(R.id.currentAvail);
 		currentUpcom = (TextView) findViewById(R.id.currentUpcom);
 		currentTitle = (TextView) findViewById(R.id.currentTitle);
+		currentOrganizer = (TextView) findViewById(R.id.currentOrganizer);
 		currentDesc = (TextView) findViewById(R.id.currentDesc);
 		currentStart = (TextView) findViewById(R.id.currentStart);
 		currentEnd = (TextView) findViewById(R.id.currentEnd);
@@ -122,6 +124,7 @@ public class MainActivity extends Activity {
 	
 	public static void setCurrent(CalEvent event) {
 		currentTitle.setText(event.getTitle());
+		currentOrganizer.setText(event.getOrganizer());
 		currentDesc.setText(event.getDescription());
 		currentStart.setText("Start : " + event.getStartTime());
 		currentEnd.setText(" End : " + event.getEndTime());
