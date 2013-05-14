@@ -10,6 +10,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.provider.CalendarContract;
 import android.text.format.DateFormat;
+import android.util.Log;
 
 public class ReadCalendar {
 	
@@ -72,6 +73,16 @@ public class ReadCalendar {
 		Collections.sort(eventlist, new CustomComparator());
 		
 		return eventlist;
+	}
+	
+	public static String getCalendarName(Context context) {
+		String[] que = { CalendarContract.Calendars.CALENDAR_DISPLAY_NAME };
+		ContentResolver cr = context.getContentResolver();
+		Cursor cursor = cr.query(CalendarContract.Calendars.CONTENT_URI, que, null, null, null);
+		cursor.moveToFirst();
+		String result = cursor.getString(0);
+		cursor.close();
+		return result;
 	}
 
 }

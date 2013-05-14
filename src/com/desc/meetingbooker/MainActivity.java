@@ -23,6 +23,7 @@ import android.widget.TextView;
 public class MainActivity extends Activity {
 	
 	private static ListView listView;
+	private static TextView calendarName;
 	private static TextView currentAvail;
 	private static TextView currentUpcom;
 	private static TextView currentTitle;
@@ -47,6 +48,9 @@ public class MainActivity extends Activity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.activity_main);
+		context = getApplicationContext();
+		calendarName = (TextView) findViewById(R.id.calendarName);
+		calendarName.setText(ReadCalendar.getCalendarName(context));
 		currentAvail = (TextView) findViewById(R.id.currentAvail);
 		currentUpcom = (TextView) findViewById(R.id.currentUpcom);
 		currentTitle = (TextView) findViewById(R.id.currentTitle);
@@ -58,16 +62,10 @@ public class MainActivity extends Activity {
 		nextMeeting = (Button) findViewById(R.id.nextMeetingButton);
 		endMeeting = (Button) findViewById(R.id.endMeetingButton);
 		listView = (ListView) findViewById(R.id.listView1);
-		context = getApplicationContext();
 		adapter = new ArrayAdapter<CalEvent>(MainActivity.context, 
 									 		 R.layout.list_black_text, 
 									 		 R.id.list_content,
-									 		 eventlist) {
-			@Override
-			public boolean isEnabled(int position) {
-				return false;
-			}
-		};
+									 		 eventlist);
 		listView.setAdapter(adapter);
 		
 		
@@ -140,12 +138,14 @@ public class MainActivity extends Activity {
 		if (val) {
 			currentUpcom.setVisibility(TextView.VISIBLE);
 			currentTitle.setVisibility(TextView.VISIBLE);
+			currentOrganizer.setVisibility(TextView.VISIBLE);
 			currentDesc.setVisibility(TextView.VISIBLE);
 			currentStart.setVisibility(TextView.VISIBLE);
 			currentEnd.setVisibility(TextView.VISIBLE);
 		} else {
 			currentUpcom.setVisibility(TextView.GONE);
 			currentTitle.setVisibility(TextView.GONE);
+			currentOrganizer.setVisibility(TextView.GONE);
 			currentDesc.setVisibility(TextView.GONE);
 			currentStart.setVisibility(TextView.GONE);
 			currentEnd.setVisibility(TextView.GONE);
@@ -210,7 +210,7 @@ public class MainActivity extends Activity {
 		// Sets the background color(Red if any event is underway, green if not)
 		if (current != null && current.isUnderway()) {
 			mainView.setBackgroundColor(Color.RED);
-			currentAvail.setText("Taken");
+			currentAvail.setText("Unavailable");
 			currentUpcom.setText("Current Meeting:");
 			nextMeeting.setVisibility(Button.GONE);
 			endMeeting.setVisibility(Button.VISIBLE);
