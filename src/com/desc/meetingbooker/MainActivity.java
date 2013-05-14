@@ -15,6 +15,8 @@ import android.view.Menu;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -67,6 +69,12 @@ public class MainActivity extends Activity {
 									 		 R.id.list_content,
 									 		 eventlist);
 		listView.setAdapter(adapter);
+		listView.setOnItemClickListener(new OnItemClickListener(){
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+				MainActivity.
+			}
+		});
 		
 		
 		
@@ -174,23 +182,11 @@ public class MainActivity extends Activity {
 		return current.getEnd() + (60000 * 16);
 	}
 	
-	/*private static TimeWindow findTimeWindow() {
-		CalEvent start;
-		CalEvent end;
-		long interval;
-		for (int i = 0; i < eventlist.size(); i++) {
-			if (i == 0) {
-				start = current;
-			} else {
-				start = eventlist.get(i);
-			}
-			end = eventlist.get(i+1);
-			interval = end.getStart() - start.getEnd();
-			if (interval > (60000 * 15)) {
-				
-			}
-		}
-	}*/
+	public void editEvent(int pos) {
+		Intent intent = new Intent(context, EditActivity.class);
+		intent.putExtra("event", pos);
+		startActivityForResult(intent, 1);
+	}
 	
 	public static void sync() {
 		currentOvertime();
