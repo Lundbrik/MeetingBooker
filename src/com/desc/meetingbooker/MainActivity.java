@@ -79,7 +79,9 @@ public class MainActivity extends Activity {
 		listView.setOnItemClickListener(new OnItemClickListener(){
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-				MainActivity.
+				Intent intent = new Intent(MainActivity.this, EditActivity.class);
+				intent.putExtra("event", position);
+				startActivityForResult(intent, 1);
 			}
 		});
 		
@@ -209,18 +211,6 @@ public class MainActivity extends Activity {
 			}
 		}
 		return current.getEnd() + (60000 * 16);
-	}
-	
-	/**
-	 * The method called by a click on an event in the ListView. Takes the event in the
-	 * selected index, and sends it to the EditEventActivity
-	 * 
-	 * @param pos The position of the event in the event list
-	 */
-	public void editEvent(int pos) {
-		Intent intent = new Intent(context, EditActivity.class);
-		intent.putExtra("event", pos);
-		startActivityForResult(intent, 1);
 	}
 	
 	/**
