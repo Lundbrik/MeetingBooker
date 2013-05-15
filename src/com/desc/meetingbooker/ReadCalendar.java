@@ -10,8 +10,14 @@ import android.content.Context;
 import android.database.Cursor;
 import android.provider.CalendarContract;
 import android.text.format.DateFormat;
-import android.util.Log;
 
+/**
+ * The class used when reading the calendar
+ * 
+ * @version 0.9
+ * @author Carl Johnsen, Daniel Pedersen, Emil Pedersen and Sune Bartels
+ * @since 02-05-2013
+ */
 public class ReadCalendar {
 	
 	// The query used to get the events from the Android calendar
@@ -21,8 +27,14 @@ public class ReadCalendar {
 		CalendarContract.Events._ID, CalendarContract.Events.ORGANIZER
 	};
 	
-	public static Cursor cursor;
+	private static Cursor cursor;
 	
+	/**
+	 * The method that reads the calendar
+	 * 
+	 * @param context The context of the app. Used to extract the CONTENT_URI and the ContentResolver
+	 * @return An ArrayList of CalEvents, that either is started, or is in the future
+	 */
 	public static ArrayList<CalEvent> readCalendar(Context context) {
 		// The ArrayList to hold the events
 		ArrayList<CalEvent> eventlist = new ArrayList<CalEvent>();
@@ -75,6 +87,12 @@ public class ReadCalendar {
 		return eventlist;
 	}
 	
+	/**
+	 * The method to get the name of the calendar
+	 * 
+	 * @param context The context of the app, used to extract the CONTENT_URI and the ContentResolver
+	 * @return The name of the calendar
+	 */
 	public static String getCalendarName(Context context) {
 		String[] que = { CalendarContract.Calendars.CALENDAR_DISPLAY_NAME };
 		ContentResolver cr = context.getContentResolver();

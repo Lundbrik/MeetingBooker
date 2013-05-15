@@ -18,6 +18,14 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TimePicker;
 
+/**
+ * An Activity that displays a formula for event details, and creates and inserts a
+ * new event, if the "Add" button is being pressed
+ * 
+ * @author Carl Johnsen, Daniel Pedersen, Emil Pedersen and Sune Bartels
+ * @version 0.9
+ * @since 09-05-2013
+ */
 public class NewMeetingActivity extends Activity {
 	
 	private static final String TAG = NewMeetingActivity.class.getSimpleName();
@@ -51,6 +59,12 @@ public class NewMeetingActivity extends Activity {
 		return true;
 	}
 	
+	/**
+	 * The method called by the "Add" button. Reads all of the fields in the UI,
+	 * inserts them into a new CalEvent and then sends it to EventCreate
+	 * 
+	 * @param view The View of the button
+	 */
 	public void add(View view) {
 		Log.d(TAG, "Adding event to calendar");
 		// Get the different UI fields
@@ -92,6 +106,11 @@ public class NewMeetingActivity extends Activity {
 		finish();
 	}
 	
+	/**
+	 * The method called by the "Cancel" button. Returns the user to the MainActivity
+	 * 
+	 * @param view The View of the button
+	 */
 	public void cancel(View view) {
 		Log.d(TAG, "Cancel button pressed");
 		finish();

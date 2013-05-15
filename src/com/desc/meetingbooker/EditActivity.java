@@ -4,6 +4,13 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 
+/**
+ * The Activity used when an event is being edited
+ * 
+ * @author Carl Johnsen, Daniel Pedersen, Emil Pedersen and Sune Bartels
+ * @version 0.9
+ * @since 14-05-2013
+ */
 public class EditActivity extends Activity {
 
 	@Override

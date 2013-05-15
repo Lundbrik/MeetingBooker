@@ -22,6 +22,13 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+/**
+ * An Activity that displays todays agenda, current/next meeting and all the links to the other activities
+ * 
+ * @author Carl Johnsen, Daniel Pedersen, Emil Pedersen and Sune Bartels
+ * @version 0.9
+ * @since 04-04-2013
+ */
 public class MainActivity extends Activity {
 	
 	private static ListView listView;
@@ -119,14 +126,31 @@ public class MainActivity extends Activity {
 		//startActivity(new Intent(this,MainActivity.class));
 	}
 	
+	/**
+	 * The method called by the "StartNextMeeting button". Changes the start time of the next
+	 * event, to the current time.
+	 * 
+	 * @param view The View from the button
+	 */
 	public void startNextMeeting(View view) {
 		UpdateEvent.updateStart(current, context);
 	}
 	
+	/**
+	 * The method called by the "EndMeeting" button. Changes the end time of the current event,
+	 * to the current time
+	 * 
+	 * @param view The View from the button
+	 */
 	public void endMeeting(View view) {
 		UpdateEvent.updateEnd(current, context);
 	}
 	
+	/**
+	 * The method called by the "NewMeeting" button. Starts the NewMeetingActivity
+	 * 
+	 * @param view The View from the button
+	 */
 	public void startNewMeeting(View view) {
 		Log.d(TAG, "New Meeting button pressed");
 		// Creates NewMeetingActivity, for user input in booking a new meeting
@@ -134,6 +158,11 @@ public class MainActivity extends Activity {
 		startActivityForResult(intent, 1);
 	}
 	
+	/**
+	 * Changes the current event, to the given event
+	 * 
+	 * @param event The event which should be set as current
+	 */
 	public static void setCurrent(CalEvent event) {
 		currentTitle.setText(event.getTitle());
 		currentOrganizer.setText(event.getOrganizer());
@@ -182,12 +211,22 @@ public class MainActivity extends Activity {
 		return current.getEnd() + (60000 * 16);
 	}
 	
+	/**
+	 * The method called by a click on an event in the ListView. Takes the event in the
+	 * selected index, and sends it to the EditEventActivity
+	 * 
+	 * @param pos The position of the event in the event list
+	 */
 	public void editEvent(int pos) {
 		Intent intent = new Intent(context, EditActivity.class);
 		intent.putExtra("event", pos);
 		startActivityForResult(intent, 1);
 	}
 	
+	/**
+	 * The method called by the Timer every 5 seconds. It reads the calendar, and updates
+	 * the UI if changes have been made
+	 */
 	public static void sync() {
 		currentOvertime();
 		
