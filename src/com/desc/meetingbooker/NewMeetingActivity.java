@@ -116,6 +116,7 @@ public class NewMeetingActivity extends Activity {
 		finish();
 	}
 	
+	// Sets time pickers to a possible interval
 	@SuppressLint("SimpleDateFormat")
 	private void setTimePickers() {
 		
@@ -139,6 +140,7 @@ public class NewMeetingActivity extends Activity {
 			
 	}
 	
+	// Finds the window to set TimePickers to
 	private TimeWindow findTimeWindow() {
 		CalEvent current = MainActivity.current;
 		long time = new Date().getTime();

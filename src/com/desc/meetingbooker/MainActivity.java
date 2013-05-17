@@ -54,28 +54,41 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Log.d(TAG, "onCreate() called");
+		
+		// Hide Status bar and App title bar
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		
 		setContentView(R.layout.activity_main);
+		
 		context = getApplicationContext();
-		calendarName = (TextView) findViewById(R.id.calendarName);
+		
+		// Casting all the Views
+		calendarName 		= (TextView) findViewById(R.id.calendarName);
+		currentAvail 		= (TextView) findViewById(R.id.currentAvail);
+		currentUpcom 		= (TextView) findViewById(R.id.currentUpcom);
+		currentTitle 		= (TextView) findViewById(R.id.currentTitle);
+		currentOrganizer 	= (TextView) findViewById(R.id.currentOrganizer);
+		currentDesc 		= (TextView) findViewById(R.id.currentDesc);
+		currentStart 		= (TextView) findViewById(R.id.currentStart);
+		currentEnd 			= (TextView) findViewById(R.id.currentEnd);
+		mainView 			= (View) findViewById(R.id.mainLay);
+		nextMeeting 		= (Button) findViewById(R.id.nextMeetingButton);
+		endMeeting 			= (Button) findViewById(R.id.endMeetingButton);
+		listView 			= (ListView) findViewById(R.id.listView1);
+		
+		// Set the name of the Calendar
 		calendarName.setText(ReadCalendar.getCalendarName(context));
-		currentAvail = (TextView) findViewById(R.id.currentAvail);
-		currentUpcom = (TextView) findViewById(R.id.currentUpcom);
-		currentTitle = (TextView) findViewById(R.id.currentTitle);
-		currentOrganizer = (TextView) findViewById(R.id.currentOrganizer);
-		currentDesc = (TextView) findViewById(R.id.currentDesc);
-		currentStart = (TextView) findViewById(R.id.currentStart);
-		currentEnd = (TextView) findViewById(R.id.currentEnd);
-		mainView = (View) findViewById(R.id.mainLay);
-		nextMeeting = (Button) findViewById(R.id.nextMeetingButton);
-		endMeeting = (Button) findViewById(R.id.endMeetingButton);
-		listView = (ListView) findViewById(R.id.listView1);
+		
+		// ArrayAdapter for the ListView of events
 		adapter = new ArrayAdapter<CalEvent>(MainActivity.context, 
 									 		 R.layout.list_black_text, 
 									 		 R.id.list_content,
 									 		 eventlist);
+		// Setting the ListView
 		listView.setAdapter(adapter);
+		
+		// Setting a custom ItemClickListener
 		listView.setOnItemClickListener(new OnItemClickListener(){
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
@@ -173,6 +186,7 @@ public class MainActivity extends Activity {
 		currentEnd.setText(" End : " + event.getEndTime());
 	}
 	
+	// Shows and hides the TextViews for current event
 	private static void curShow(boolean val) {
 		if (val) {
 			currentUpcom.setVisibility(TextView.VISIBLE);
@@ -193,6 +207,7 @@ public class MainActivity extends Activity {
 		}
 	}
 	
+	// Pushes the current event forward by, up to 15 minutes if nobody pressed End Meeting
 	private static void currentOvertime() {
 		Long currentTime = new Date().getTime() + 60000;
 		if (current != null && !isOverTime && current.getEnd() <= currentTime) {
@@ -202,7 +217,8 @@ public class MainActivity extends Activity {
 			Log.d(TAG, "update current! " + isOverTime);
 		}
 	}
-	
+
+	// Gives up to 15 minutes to extend current event(Uses "16" because it seems to round down one minute)
 	private static long findExtendedTimeWindow() {
 		if (!eventlist.isEmpty()) {
 			long interval = eventlist.get(0).getStart() - current.getEnd();
@@ -226,7 +242,8 @@ public class MainActivity extends Activity {
 		// Reads all events from the calendar on the present day into an ArrayList
 		eventlist = ReadCalendar.readCalendar(MainActivity.context);
 		
-		// Checks if any of the event in the ArrayList is underway, and sets it as current event
+		// Checks if any of the event in the ArrayList is underway,
+		// and sets it as current event and removes it from the list
 		if (!eventlist.isEmpty()) {
 			current = eventlist.get(0);
 			eventlist.remove(0);
