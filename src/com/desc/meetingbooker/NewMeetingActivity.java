@@ -15,8 +15,12 @@ import android.view.Menu;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TimePicker;
+import android.widget.AdapterView.OnItemClickListener;
 
 /**
  * An Activity that displays a formula for event details, and creates and inserts a
@@ -31,9 +35,12 @@ public class NewMeetingActivity extends Activity {
 	private static final String TAG = NewMeetingActivity.class.getSimpleName();
 	private TimePicker timeStart;
 	private TimePicker timeEnd;
+	private ListView intervalPicker;
 	private Date date = new Date();
 	private Calendar cal = Calendar.getInstance();
 	private ArrayList<CalEvent> eventlist;
+	private ArrayList<TimeWindow> windowList;
+	private ArrayAdapter<TimeWindow> adapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +56,26 @@ public class NewMeetingActivity extends Activity {
 		timeStart = (TimePicker) findViewById(R.id.timePickerStart);
 		timeEnd = (TimePicker) findViewById(R.id.timePickerEnd);
 		
-		setTimePickers();
+		intervalPicker = (ListView) findViewById(R.id.intervalView);
+		windowList = findTimeWindow();
+		
+		adapter = new ArrayAdapter<TimeWindow>(getApplicationContext(), 
+		 		 R.layout.list_black_text, 
+		 		 R.id.list_content,
+		 		 windowList);
+		
+		// Setting the ListView
+		intervalPicker.setAdapter(adapter);
+		
+		intervalPicker.setOnItemClickListener(new OnItemClickListener(){
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+				setTimePickers(windowList.get(position));
+			}
+		});
+		
+		
+		setTimePickers(windowList.get(0));
 	}
 
 	@Override
@@ -118,13 +144,11 @@ public class NewMeetingActivity extends Activity {
 	
 	// Sets time pickers to a possible interval
 	@SuppressLint("SimpleDateFormat")
-	private void setTimePickers() {
+	private void setTimePickers(TimeWindow window) {
 		
 		// Sets the TimePickers to use 24 hour
 		timeStart.setIs24HourView(true);
 		timeEnd.setIs24HourView(true);
-		
-		TimeWindow window = findTimeWindow();
 		
 		int hour = Integer.parseInt(new SimpleDateFormat("HH").format(new Date(window.getStart())));
 		int minute = Integer.parseInt(new SimpleDateFormat("mm").format(new Date(window.getStart())));
@@ -141,37 +165,40 @@ public class NewMeetingActivity extends Activity {
 	}
 	
 	// Finds the window to set TimePickers to
-	private TimeWindow findTimeWindow() {
+	private ArrayList<TimeWindow> findTimeWindow() {
+		ArrayList<TimeWindow> returnList = new ArrayList<TimeWindow>();
 		CalEvent current = MainActivity.current;
 		long time = new Date().getTime();
 		long fiveMin = 60000 * 5;
 		long oneHour = 60000 * 60;
 		
 		if (current == null) {
-			return new TimeWindow(time, time + oneHour);
+			returnList.add(new TimeWindow(time, time + oneHour));
+			return returnList;
 		}
 		if (!current.isUnderway()) {
 			long interval = current.getStart() - time;
 			if (interval >= fiveMin) {
-				return new TimeWindow(time,current.getStart());
+				returnList.add(new TimeWindow(time,current.getStart()));
 			}
 		}
+		returnList.add(new TimeWindow(current.getEnd(), current.getEnd() + oneHour));
 		if (!eventlist.isEmpty()) {
 			long interval = eventlist.get(0).getStart() - current.getEnd();
 			if (interval >= fiveMin) {
-				return new TimeWindow(current.getEnd(), eventlist.get(0).getStart());
+				returnList.add(new TimeWindow(current.getEnd(), eventlist.get(0).getStart()));
 			} else {
 				for (int i = 0; i < eventlist.size()-1; i++) {
 					interval = eventlist.get(i+1).getStart() - eventlist.get(i).getEnd();
 					if (interval >= fiveMin) {
-						return new TimeWindow(eventlist.get(i).getEnd(), eventlist.get(i+1).getStart());
+						returnList.add(new TimeWindow(eventlist.get(i).getEnd(), eventlist.get(i+1).getStart()));
 					}
 				}
 			}
 			long eventlistLast = eventlist.get(eventlist.size()-1).getEnd();
-			return new TimeWindow(eventlistLast, eventlistLast + oneHour);
+			returnList.add(new TimeWindow(eventlistLast, eventlistLast + oneHour));
 		}
-		return new TimeWindow(current.getEnd(), current.getEnd() + oneHour);
+		return returnList;
 	}
 
 }

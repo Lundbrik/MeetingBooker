@@ -61,6 +61,15 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/timePickerStart" />
+    
+    <ListView
+        android:id="@+id/intervalView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/timePickerStart"
+        android:layout_centerInParent="true"
+        android:layout_toLeftOf="@+id/timePickerEnd"
+        android:layout_toRightOf="@+id/timePickerStart" />
 
     <TimePicker
         android:id="@+id/timePickerStart"

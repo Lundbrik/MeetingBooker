@@ -233,7 +233,7 @@ public class MainActivity extends Activity {
 	 * The method called by the Timer every 5 seconds. It reads the calendar, and updates
 	 * the UI if changes have been made
 	 */
-	public static void sync() {
+	protected static void sync() {
 		currentOvertime();
 		
 		// The event that is currently underway
