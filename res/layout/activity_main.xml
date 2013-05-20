@@ -24,7 +24,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" 
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/clock" >
+        android:layout_below="@+id/clock"
+        android:clickable="true"
+        android:onClick="editCurrent" >
         
         <TextView
 	        android:id="@+id/currentAvail"

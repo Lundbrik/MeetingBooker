@@ -60,7 +60,11 @@ public class EditActivity extends Activity {
 
 		eventlist = MainActivity.eventlist;
 		index = this.getIntent().getIntExtra("event", -2);
-		event = eventlist.get(index);
+		if (index == -1) {
+			event = MainActivity.current;
+		} else {
+			event = eventlist.get(index);
+		}
 
 		// Finds the TimePickers
 		timeStart = (TimePicker) findViewById(R.id.timePickerStart);

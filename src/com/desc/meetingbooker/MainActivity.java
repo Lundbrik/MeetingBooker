@@ -141,6 +141,12 @@ public class MainActivity extends Activity {
 		//startActivity(new Intent(this,MainActivity.class));
 	}
 	
+	public void editCurrent(View view) {
+		Intent intent = new Intent(this, EditActivity.class);
+		intent.putExtra("event", -1);
+		startActivityForResult(intent, 1);
+	}
+	
 	/**
 	 * The method called by the "StartNextMeeting button". Changes the start time of the next
 	 * event, to the current time.
