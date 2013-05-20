@@ -68,5 +68,17 @@ public class UpdateEvent {
 		uri = ContentUris.withAppendedId(Events.CONTENT_URI, event.getId());
 		cr.update(uri, cv, null, null);
 	}
+	
+	public static void update(CalEvent event, Context context) {
+		ContentResolver cr = context.getContentResolver();
+		ContentValues cv = new ContentValues();
+		Uri uri = null;
+		cv.put(Events.DTSTART, event.getStart());
+		cv.put(Events.DTEND, event.getEnd());
+		cv.put(Events.TITLE, event.getTitle());
+		cv.put(Events.DESCRIPTION, event.getDescription());
+		uri = ContentUris.withAppendedId(Events.CONTENT_URI, event.getId());
+		cr.update(uri, cv, null, null);
+	}
 
 }

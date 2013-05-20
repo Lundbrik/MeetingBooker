@@ -9,7 +9,9 @@ import java.util.Locale;
 import android.os.Bundle;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -127,9 +129,38 @@ public class NewMeetingActivity extends Activity {
 		// Create a new CalEvent
 		CalEvent event = new CalEvent(start,end,title,desc);
 		Context context = getApplicationContext();
-		EventCreate.instance.setNewEvent(event, context);
-		Log.d(TAG, "event inserted");
-		finish();
+		if(CalendarChecker.isBefore(event)) {
+			AlertDialog dialog = new AlertDialog.Builder(this).create();
+			dialog.setTitle("Error");
+			dialog.setMessage("End time is before start time");
+			dialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+				}
+				
+			});
+			dialog.show();
+			return;
+		}
+		Log.d(TAG, "" + CalendarChecker.isFree(event));
+		if(CalendarChecker.isFree(event)) {
+			EventCreate.instance.setNewEvent(event, context);
+			Log.d(TAG, "event inserted");
+			finish();
+		} else {
+			AlertDialog dialog = new AlertDialog.Builder(this).create();
+			dialog.setTitle("Error");
+			dialog.setMessage("Meeting is overlapping");
+			dialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+				}
+				
+			});
+			dialog.show();
+		}
 	}
 	
 	/**
@@ -182,7 +213,6 @@ public class NewMeetingActivity extends Activity {
 				returnList.add(new TimeWindow(time,current.getStart()));
 			}
 		}
-		returnList.add(new TimeWindow(current.getEnd(), current.getEnd() + oneHour));
 		if (!eventlist.isEmpty()) {
 			long interval = eventlist.get(0).getStart() - current.getEnd();
 			if (interval >= fiveMin) {
@@ -197,6 +227,8 @@ public class NewMeetingActivity extends Activity {
 			}
 			long eventlistLast = eventlist.get(eventlist.size()-1).getEnd();
 			returnList.add(new TimeWindow(eventlistLast, eventlistLast + oneHour));
+		} else {
+			returnList.add(new TimeWindow(current.getEnd(), current.getEnd() + oneHour));
 		}
 		return returnList;
 	}

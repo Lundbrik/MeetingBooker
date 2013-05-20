@@ -53,7 +53,6 @@ public class TimeWindow {
 	public String toString() {
 		String st = DateFormat.format("kk:mm", new Date(this.start)).toString();
 		String en = DateFormat.format("kk:mm", new Date(this.end)).toString();
-		Log.d("TimeWindow", "toString Start = " + st + " End = " + en);
 		return "Start = " + st + " :  End = " + en;
 	}
 

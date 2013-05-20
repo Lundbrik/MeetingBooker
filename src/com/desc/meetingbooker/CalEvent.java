@@ -63,6 +63,14 @@ public class CalEvent {
 		description = desc;
 	}
 	
+	public CalEvent(long sT, long eT, String tit, String desc, long id) {
+		startTime = sT;
+		endTime = eT;
+		title = tit;
+		description = desc;
+		this.id = id;
+	}
+	
 	/**
 	 * Start time getter
 	 * 
@@ -181,6 +189,10 @@ public class CalEvent {
 	 */
 	public boolean getOverTime() {
 		return isOverTime;
+	}
+	
+	public TimeWindow getTimeWindow() {
+		return new TimeWindow(this.startTime, this.endTime);
 	}
 	
 }
