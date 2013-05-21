@@ -16,5 +16,7 @@
     <string name="text_endmeeting">End Meeting</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_edit">EditActivity</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="text_settings">Settings</string>
 
 </resources>

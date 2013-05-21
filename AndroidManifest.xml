@@ -35,6 +35,10 @@
             android:name="com.desc.meetingbooker.EditActivity"
             android:label="@string/title_activity_edit" >
         </activity>
+        <activity
+            android:name="com.desc.meetingbooker.SettingsActivity"
+            android:label="@string/title_activity_settings" >
+        </activity>
     </application>
 
 </manifest>

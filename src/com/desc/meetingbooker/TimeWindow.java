@@ -2,7 +2,6 @@ package com.desc.meetingbooker;
 
 import java.util.Date;
 import android.text.format.DateFormat;
-import android.util.Log;
 
 /**
  * A class which is used to represent a time window, i.e. A window of time

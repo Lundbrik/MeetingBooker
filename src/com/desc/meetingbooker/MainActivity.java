@@ -7,10 +7,16 @@ import java.util.TimerTask;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.text.Editable;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.Window;
@@ -19,6 +25,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -170,6 +177,11 @@ public class MainActivity extends Activity {
 		UpdateEvent.updateEnd(current, context);
 	}
 	
+	public void settings(View view) {
+		DialogFragment fragment = new SettingsFragment();
+		fragment.show(getFragmentManager(), "BLA");
+	}
+	
 	/**
 	 * The method called by the "NewMeeting" button. Starts the NewMeetingActivity
 	 * 
@@ -310,6 +322,36 @@ public class MainActivity extends Activity {
 		
 	}
 	
-	
+	private class SettingsFragment extends DialogFragment {
+		
+		@Override
+		public Dialog onCreateDialog(Bundle savedInstanceState) {
+			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+			LayoutInflater inflater = getActivity().getLayoutInflater();
+			final View v = inflater.inflate(R.layout.password_layout, null);
+			builder.setView(v)
+				.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+					
+					@Override
+					public void onClick(DialogInterface arg0, int arg1) {
+						EditText pwtext = (EditText) v.findViewById(R.id.pwEdit);
+						String typedpw = pwtext.getText().toString();
+						if (typedpw.equals("1234")) {
+							Intent intent = new Intent(MainActivity.context, SettingsActivity.class);
+							startActivityForResult(intent,1);
+						}
+					}
+				})
+				.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+					
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						// NOTHING
+					}
+				});
+			return builder.create();
+		}
+		
+	}
 
 }
