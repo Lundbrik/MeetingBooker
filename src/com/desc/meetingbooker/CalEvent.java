@@ -19,6 +19,7 @@ public class CalEvent {
 	private Format datF;
 	private boolean isUnderway;
 	private long id;
+	private boolean isDelayed = false;
 	private boolean isOverTime = false;
 	
 	/**
@@ -189,6 +190,14 @@ public class CalEvent {
 	 */
 	public boolean getOverTime() {
 		return isOverTime;
+	}
+	
+	public void setDelayed() {
+		isDelayed = true;
+	}
+	
+	public boolean isDelayed() {
+		return isDelayed;
 	}
 	
 	public TimeWindow getTimeWindow() {

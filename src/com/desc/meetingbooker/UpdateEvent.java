@@ -35,6 +35,17 @@ public class UpdateEvent {
 		MainActivity.sync();
 	}
 	
+	public static void updateStart(CalEvent event, Context context, long time) {
+		// Update events start time
+		ContentResolver cr = context.getContentResolver();
+		ContentValues cv = new ContentValues();
+		Uri uri = null;
+		cv.put(Events.DTSTART, time);
+		uri = ContentUris.withAppendedId(Events.CONTENT_URI, event.getId());
+		cr.update(uri, cv, null, null);
+		MainActivity.sync();
+	}
+	
 	/**
 	 * Changes the end time of the given event, to the current time
 	 * 

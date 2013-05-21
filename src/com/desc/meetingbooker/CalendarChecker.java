@@ -6,13 +6,17 @@ public class CalendarChecker {
 	
 	public static boolean isFree(CalEvent event) {
 		ArrayList<CalEvent> eventlist = MainActivity.eventlist;
-		eventlist.add(MainActivity.current);
-		for (CalEvent ev : eventlist) {
-			if (ev.getStart() > event.getStart() && ev.getStart() < event.getEnd()) {
-				return false;
-			}
-			if (ev.getEnd() > event.getStart() && ev.getEnd() < event.getEnd()) {
-				return false;
+		if (MainActivity.current != null) {
+			eventlist.add(MainActivity.current);
+		}
+		if (!eventlist.isEmpty()) {
+			for (CalEvent ev : eventlist) {
+				if (ev.getStart() > event.getStart() && ev.getStart() < event.getEnd()) {
+					return false;
+				}
+				if (ev.getEnd() > event.getStart() && ev.getEnd() < event.getEnd()) {
+					return false;
+				}
 			}
 		}
 		return true;

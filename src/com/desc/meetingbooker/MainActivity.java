@@ -33,6 +33,7 @@ public class MainActivity extends Activity {
 	
 	private static ListView listView;
 	private static TextView calendarName;
+	private static View curNextLay;
 	private static TextView currentAvail;
 	private static TextView currentUpcom;
 	private static TextView currentTitle;
@@ -48,6 +49,7 @@ public class MainActivity extends Activity {
 	protected static CalEvent current = null;
 	private static Button nextMeeting;
 	private static Button endMeeting;
+	private static boolean isDelayed = false;
 	private static boolean isOverTime = false;
 	
 	@Override
@@ -65,6 +67,7 @@ public class MainActivity extends Activity {
 		
 		// Casting all the Views
 		calendarName 		= (TextView) findViewById(R.id.calendarName);
+		curNextLay			= (View) findViewById(R.id.curnextLay);
 		currentAvail 		= (TextView) findViewById(R.id.currentAvail);
 		currentUpcom 		= (TextView) findViewById(R.id.currentUpcom);
 		currentTitle 		= (TextView) findViewById(R.id.currentTitle);
@@ -195,6 +198,7 @@ public class MainActivity extends Activity {
 	// Shows and hides the TextViews for current event
 	private static void curShow(boolean val) {
 		if (val) {
+			curNextLay.setClickable(true);
 			currentUpcom.setVisibility(TextView.VISIBLE);
 			currentTitle.setVisibility(TextView.VISIBLE);
 			currentOrganizer.setVisibility(TextView.VISIBLE);
@@ -202,6 +206,7 @@ public class MainActivity extends Activity {
 			currentStart.setVisibility(TextView.VISIBLE);
 			currentEnd.setVisibility(TextView.VISIBLE);
 		} else {
+			curNextLay.setClickable(false);
 			currentUpcom.setVisibility(TextView.GONE);
 			currentTitle.setVisibility(TextView.GONE);
 			currentOrganizer.setVisibility(TextView.GONE);
@@ -213,35 +218,51 @@ public class MainActivity extends Activity {
 		}
 	}
 	
+	private static void deleteCurrent() {
+		UpdateEvent.updateStart(current, context);
+		UpdateEvent.updateEnd(current, context);
+	}
+	
 	// Pushes the current event forward by, up to 15 minutes if nobody pressed End Meeting
 	private static void currentOvertime() {
 		Long currentTime = new Date().getTime() + 60000;
 		if (current != null && !isOverTime && current.getEnd() <= currentTime) {
-			Log.d(TAG, "update current! " + isOverTime);
-			UpdateEvent.updateEnd(current, context, findExtendedTimeWindow());
 			isOverTime = true;
-			Log.d(TAG, "update current! " + isOverTime);
+			UpdateEvent.updateEnd(current, context, findExtendedTimeWindow());
+		}
+	}
+	
+	private static void currentDelayed() {
+		Long currentTime = new Date().getTime() + 10000;
+		if (current != null && !current.isUnderway() && !isDelayed && current.getStart() <= currentTime) {
+			isDelayed = true;
+			if ((current.getEnd() - current.getStart()) > (16 * 60000) ) {
+				UpdateEvent.updateStart(current, context, current.getStart() + (15 * 60000));
+			} else {
+				UpdateEvent.updateStart(current, context, current.getEnd() - 60000);
+			}
+		}
+		if (current != null && !current.isUnderway() && isDelayed && current.getStart() <= currentTime) {
+			deleteCurrent();
 		}
 	}
 
-	// Gives up to 15 minutes to extend current event(Uses "16" because it seems to round down one minute)
+	// Gives up to 15 minutes to extend current event
 	private static long findExtendedTimeWindow() {
 		if (!eventlist.isEmpty()) {
 			long interval = eventlist.get(0).getStart() - current.getEnd();
-			if (interval < (60000 * 16)) {
+			if (interval < (60000 * 15)) {
 				return eventlist.get(0).getStart();
 			}
 		}
-		return current.getEnd() + (60000 * 16);
+		return current.getEnd() + (60000 * 15);
 	}
 	
 	/**
 	 * The method called by the Timer every 5 seconds. It reads the calendar, and updates
 	 * the UI if changes have been made
 	 */
-	protected static void sync() {
-		currentOvertime();
-		
+	protected static void sync() {		
 		// The event that is currently underway
 		current = null;
 		
@@ -255,6 +276,9 @@ public class MainActivity extends Activity {
 			eventlist.remove(0);
 		}
 		
+		currentOvertime();
+		currentDelayed();
+		
 		// Sets the background color(Red if any event is underway, green if not)
 		if (current != null && current.isUnderway()) {
 			mainView.setBackgroundColor(Color.RED);
@@ -263,6 +287,7 @@ public class MainActivity extends Activity {
 			nextMeeting.setVisibility(Button.GONE);
 			endMeeting.setVisibility(Button.VISIBLE);
 			setCurrent(current);
+			isDelayed = false;
 			curShow(true);
 		} else {
 			mainView.setBackgroundColor(Color.GREEN);
