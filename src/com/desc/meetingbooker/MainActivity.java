@@ -14,7 +14,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.text.Editable;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -40,8 +40,8 @@ public class MainActivity extends Activity {
 	
 	private static ListView listView;
 	private static TextView calendarName;
-	private static View curNextLay;
 	private static TextView currentAvail;
+	private static View curNextLay;
 	private static TextView currentUpcom;
 	private static TextView currentTitle;
 	private static TextView currentOrganizer;
@@ -64,18 +64,19 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		Log.d(TAG, "onCreate() called");
 		
-		// Hide Status bar and App title bar
+		// Hide Status bar and App title bar (before setContentView())
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		
 		setContentView(R.layout.activity_main);
 		
+		// Get the context
 		context = getApplicationContext();
 		
 		// Casting all the Views
 		calendarName 		= (TextView) findViewById(R.id.calendarName);
-		curNextLay			= (View) findViewById(R.id.curnextLay);
 		currentAvail 		= (TextView) findViewById(R.id.currentAvail);
+		curNextLay			= (View) findViewById(R.id.curnextLay);
 		currentUpcom 		= (TextView) findViewById(R.id.currentUpcom);
 		currentTitle 		= (TextView) findViewById(R.id.currentTitle);
 		currentOrganizer 	= (TextView) findViewById(R.id.currentOrganizer);
