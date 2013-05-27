@@ -19,6 +19,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TimePicker;
@@ -43,6 +44,7 @@ public class NewMeetingActivity extends Activity {
 	private ArrayList<CalEvent> eventlist;
 	private ArrayList<TimeWindow> windowList;
 	private ArrayAdapter<TimeWindow> adapter;
+	private Button add;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +55,7 @@ public class NewMeetingActivity extends Activity {
 		setContentView(R.layout.activity_new_meeting);
 		
 		eventlist = MainActivity.eventlist;
+		add = (Button) findViewById(R.id.addButton);
 		
 		// Finds the TimePickers
 		timeStart = (TimePicker) findViewById(R.id.timePickerStart);
@@ -94,6 +97,8 @@ public class NewMeetingActivity extends Activity {
 	 * @param view The View of the button
 	 */
 	public void add(View view) {
+		add.setClickable(false);
+		
 		Log.d(TAG, "Adding event to calendar");
 		// Get the different UI fields
 		EditText titleText = (EditText) findViewById(R.id.editTitle);
@@ -141,6 +146,7 @@ public class NewMeetingActivity extends Activity {
 				
 			});
 			dialog.show();
+			add.setClickable(true);
 			return;
 		}
 		Log.d(TAG, "" + CalendarChecker.isFree(event));
@@ -160,6 +166,7 @@ public class NewMeetingActivity extends Activity {
 				
 			});
 			dialog.show();
+			add.setClickable(true);
 		}
 	}
 	

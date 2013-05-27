@@ -14,7 +14,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -58,6 +57,8 @@ public class MainActivity extends Activity {
 	private static Button endMeeting;
 	private static boolean isDelayed = false;
 	private static boolean isOverTime = false;
+	
+	public static boolean extendEnd;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -289,7 +290,9 @@ public class MainActivity extends Activity {
 			eventlist.remove(0);
 		}
 		
-		currentOvertime();
+		if (extendEnd) {
+			currentOvertime();
+		}
 		currentDelayed();
 		
 		// Sets the background color(Red if any event is underway, green if not)
@@ -323,7 +326,7 @@ public class MainActivity extends Activity {
 		
 	}
 	
-	private class SettingsFragment extends DialogFragment {
+	public static class SettingsFragment extends DialogFragment {
 		
 		@Override
 		public Dialog onCreateDialog(Bundle savedInstanceState) {
