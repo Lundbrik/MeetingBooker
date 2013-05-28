@@ -73,6 +73,7 @@ public class MainActivity extends Activity {
 		
 		// Get the context
 		context = getApplicationContext();
+		ConfigReader.readConfig(context);
 		
 		// Casting all the Views
 		calendarName 		= (TextView) findViewById(R.id.calendarName);
