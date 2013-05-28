@@ -69,7 +69,8 @@
         android:layout_alignTop="@+id/timePickerStart"
         android:layout_centerInParent="true"
         android:layout_toLeftOf="@+id/timePickerEnd"
-        android:layout_toRightOf="@+id/timePickerStart" />
+        android:layout_toRightOf="@+id/timePickerStart"
+        android:layout_above="@+id/addButton" />
 
     <TimePicker
         android:id="@+id/timePickerStart"

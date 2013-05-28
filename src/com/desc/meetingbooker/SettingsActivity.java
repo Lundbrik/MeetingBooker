@@ -1,6 +1,5 @@
 package com.desc.meetingbooker;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.os.Bundle;

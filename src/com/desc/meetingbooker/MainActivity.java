@@ -111,8 +111,6 @@ public class MainActivity extends Activity {
 			}
 		});
 		
-		
-		
 		// Timer for continuous update of calendar
 		Timer timer = new Timer();
 		Log.d(TAG, "Timer started");
@@ -214,20 +212,10 @@ public class MainActivity extends Activity {
 	private static void curShow(boolean val) {
 		if (val) {
 			curNextLay.setClickable(true);
-			currentUpcom.setVisibility(TextView.VISIBLE);
-			currentTitle.setVisibility(TextView.VISIBLE);
-			currentOrganizer.setVisibility(TextView.VISIBLE);
-			currentDesc.setVisibility(TextView.VISIBLE);
-			currentStart.setVisibility(TextView.VISIBLE);
-			currentEnd.setVisibility(TextView.VISIBLE);
+			curNextLay.setVisibility(TextView.VISIBLE);
 		} else {
 			curNextLay.setClickable(false);
-			currentUpcom.setVisibility(TextView.GONE);
-			currentTitle.setVisibility(TextView.GONE);
-			currentOrganizer.setVisibility(TextView.GONE);
-			currentDesc.setVisibility(TextView.GONE);
-			currentStart.setVisibility(TextView.GONE);
-			currentEnd.setVisibility(TextView.GONE);
+			curNextLay.setVisibility(TextView.GONE);
 			nextMeeting.setVisibility(Button.GONE);
 			endMeeting.setVisibility(Button.GONE);
 		}
