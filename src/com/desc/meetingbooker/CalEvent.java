@@ -38,10 +38,10 @@ public class CalEvent {
 		startTime = sT;
 		endTime = eT;
 		title = tit;
-		if (desc.equals("")) {
-			description = "(no description)";
-		} else {
+		if (desc != null && !desc.equals("")) {
 			description = desc;
+		} else {
+			description = "(no description)";
 		}
 		datF = tf;
 		isUnderway = iU;

@@ -2,6 +2,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginBottom="350dp"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
+    android:layout_marginTop="5dp"
     tools:context=".NewMeetingActivity" >
 
     <TextView
@@ -9,90 +13,104 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/text_title" />
-    
-     <EditText
+
+    <EditText
         android:id="@+id/editTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
         android:layout_below="@+id/titleTextView"
-        android:ems="15" 
+        android:layout_centerInParent="true"
+        android:ems="15"
         android:inputType="text"
-        android:text="@string/text_spontaneous">
+        android:text="@string/text_spontaneous" >
     </EditText>
-    
-   	<TextView
+
+    <TextView
         android:id="@+id/descTextView"
-        android:layout_below="@+id/editTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/editTitle"
         android:text="@string/text_description" />
-   	
-   <EditText
+
+    <EditText
         android:id="@+id/editDesc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
         android:layout_below="@+id/descTextView"
+        android:layout_centerInParent="true"
         android:ems="15"
-        android:inputType="textMultiLine" 
-        android:hint="@string/text_description" >
+        android:hint="@string/text_description"
+        android:inputType="textMultiLine" >
     </EditText>
-    
-   	<TextView 
-   	    android:id="@+id/textStart"
-   	    android:layout_width="wrap_content"
-   	    android:layout_height="wrap_content"
-   	    android:layout_below="@+id/editDesc"
-   	    android:layout_alignParentLeft="true"
-   	    android:text="@string/text_start"/>
-   	
-   	<TextView 
-   	    android:id="@+id/textEnd"
-   	    android:layout_width="wrap_content"
-   	    android:layout_height="wrap_content"
-   	    android:layout_below="@+id/editDesc"
-   	    android:layout_alignParentRight="true"
-   	    android:text="@string/text_end"/>
 
-    <TimePicker
-        android:id="@+id/timePickerEnd"
+    <RelativeLayout
+        android:layout_alignParentLeft="true"
+        android:id="@+id/timeStart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/timePickerStart" />
-    
+        android:layout_below="@+id/editDesc" >
+
+        <TextView
+            android:id="@+id/textStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="@string/text_start" />
+
+        <TimePicker
+            android:id="@+id/timePickerStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/textStart" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/timeEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editDesc"
+        android:layout_alignParentRight="true" >
+
+        <TextView
+            android:id="@+id/textEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="@string/text_end" />
+
+        <TimePicker
+            android:id="@+id/timePickerEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/timePickerStart" />
+    </RelativeLayout>
+
     <ListView
         android:id="@+id/intervalView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/timePickerStart"
-        android:layout_centerInParent="true"
-        android:layout_toLeftOf="@+id/timePickerEnd"
-        android:layout_toRightOf="@+id/timePickerStart"
-        android:layout_above="@+id/addButton" />
-
-    <TimePicker
-        android:id="@+id/timePickerStart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textStart" />
-    
+        android:layout_above="@+id/addButton"
+        android:layout_alignTop="@+id/timeEnd"
+        android:layout_alignBottom="@+id/timeEnd"
+        android:layout_centerInParent="true"
+        android:layout_toLeftOf="@+id/timeEnd"
+        android:layout_toRightOf="@+id/timeStart" />
+
     <Button
         android:id="@+id/addButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/timePickerStart"
-        android:text="@string/text_add"
-        android:onClick="add" />
+        android:layout_above="@+id/cancelButton"
+        android:onClick="add"
+        android:text="@string/text_add" />
 
     <Button
         android:id="@+id/cancelButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/addButton"
-        android:text="@string/text_cancel" 
-        android:onClick="cancel"/>
+        android:layout_alignParentBottom="true"
+        android:onClick="cancel"
+        android:text="@string/text_cancel" />
 
 </RelativeLayout>
