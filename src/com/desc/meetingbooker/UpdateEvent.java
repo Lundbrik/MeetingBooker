@@ -35,6 +35,13 @@ public class UpdateEvent {
 		MainActivity.sync();
 	}
 	
+	/**
+	 * Changes the start time of the given event, to the given time
+	 * 
+	 * @param event The event that should be updated
+	 * @param context The context of the application
+	 * @param time The time that the start should be set to
+	 */
 	public static void updateStart(CalEvent event, Context context, long time) {
 		// Update events start time
 		ContentResolver cr = context.getContentResolver();
@@ -80,6 +87,12 @@ public class UpdateEvent {
 		cr.update(uri, cv, null, null);
 	}
 	
+	/**
+	 * Used when the application has updated an event, and needs to edit the event in the calendar
+	 *  
+	 * @param event The event that has been updated
+	 * @param context The context of the application
+	 */
 	public static void update(CalEvent event, Context context) {
 		ContentResolver cr = context.getContentResolver();
 		ContentValues cv = new ContentValues();

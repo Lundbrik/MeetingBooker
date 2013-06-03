@@ -13,10 +13,23 @@ import java.util.HashMap;
 import android.content.Context;
 import android.util.Log;
 
+/**
+ * A Class that holds the methods to read the config file
+ * 
+ * @author Carl Johnsen, Daniel Pedersen, Emil Pedersen and Sune Bartels
+ * @version 0.9
+ * @since 27-05-2013
+ */
 public class ConfigReader {
 	
 	private static HashMap<String, String> map;
 
+	/**
+	 * Reads the config file, and then it interprets it
+	 * 
+	 * @param context The context of the application
+	 * @return A HashMap of (command, value) pairs
+	 */
 	public static HashMap<String, String> readConfig(Context context) {
 		ArrayList<String> config = new ArrayList<String>();
 
@@ -75,6 +88,12 @@ public class ConfigReader {
 		}
 	}
 	
+	/**
+	 * Writes the given HashMap to the config file
+	 * 
+	 * @param map The given HashMap
+	 * @param context The context of the application
+	 */
 	public static void write(HashMap<String, String> map, Context context) {
 		try {
 			FileOutputStream out = context.openFileOutput("config.cfg", Context.MODE_PRIVATE);

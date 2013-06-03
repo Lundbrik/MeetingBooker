@@ -49,6 +49,11 @@ public class TimeWindow {
 		return this.end;
 	}
 	
+	/**
+	 * Get a String representation of the TimeWindow
+	 * 
+	 * @return A String representation of the TimeWindow
+	 */
 	public String toString() {
 		String st = DateFormat.format("kk:mm", new Date(this.start)).toString();
 		String en = DateFormat.format("kk:mm", new Date(this.end)).toString();

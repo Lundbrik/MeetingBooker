@@ -151,7 +151,7 @@ public class NewMeetingActivity extends Activity {
 		}
 		Log.d(TAG, "" + CalendarChecker.isFree(event));
 		if(CalendarChecker.isFree(event)) {
-			EventCreate.instance.setNewEvent(event, context);
+			EventCreate.setNewEvent(event, context);
 			Log.d(TAG, "event inserted");
 			finish();
 		} else {

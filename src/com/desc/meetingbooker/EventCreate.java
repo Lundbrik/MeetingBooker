@@ -19,20 +19,12 @@ import android.provider.CalendarContract.Events;
 public class EventCreate {
 	
 	/**
-	 * The instance of this class
-	 */
-	public static final EventCreate instance = new EventCreate();
-	
-	private EventCreate() {
-	}
-	
-	/**
 	 * The method for inserting into the calendar
 	 * 
 	 * @param event The event that should be inserted
 	 * @param context The context of this application, used to extract the CONTENT_URI and the ContentResolver
 	 */
-	public void setNewEvent(CalEvent event, Context context) {
+	public static void setNewEvent(CalEvent event, Context context) {
 		
 		Uri EVENTS_URI = Uri.parse(CalendarContract.Events.CONTENT_URI.toString());
 		ContentResolver cr = context.getContentResolver();

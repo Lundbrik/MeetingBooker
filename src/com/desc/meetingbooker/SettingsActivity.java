@@ -10,6 +10,14 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.CheckBox;
 
+/**
+ * An activity that reads the config file, and then displays a formula, to edit
+ * the config file.
+ * 
+ * @author Carl Johnsen, Daniel Pedersen, Emil Pedersen and Sune Bartels
+ * @version 0.9
+ * @since 27-05-2013
+ */
 public class SettingsActivity extends Activity {
 	
 	private final String TAG = SettingsActivity.class.getSimpleName();
@@ -29,20 +37,33 @@ public class SettingsActivity extends Activity {
 		
 		config = ConfigReader.readConfig(getApplicationContext());
 		setViews(config);
+		Log.d(TAG, "onCreate()");
 	}
 	
 	private void setViews(HashMap<String, String> map) {
 		extendEndCheck.setChecked(Boolean.parseBoolean(map.get("extendendtime")));
 	}
 	
+	/**
+	 * Reads the formula, and then writes it to the config file
+	 * 
+	 * @param view The View from the button
+	 */
 	public void save(View view) {
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("extendendtime", extendEndCheck.isChecked() + "");
 		ConfigReader.write(map, getApplicationContext());
+		Log.d(TAG, "Save the new configuration");
 		finish();
 	}
 	
+	/**
+	 * Exits the SettingsActivity
+	 * 
+	 * @param view The View of the button
+	 */
 	public void cancel(View view) {
+		Log.d(TAG, "cancel()");
 		finish();
 	}
 

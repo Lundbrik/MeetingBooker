@@ -19,8 +19,6 @@ public class CalEvent {
 	private Format datF;
 	private boolean isUnderway;
 	private long id;
-	private boolean isDelayed = false;
-	private boolean isOverTime = false;
 	
 	/**
 	 * The constructor for making a new CalEvent
@@ -64,6 +62,15 @@ public class CalEvent {
 		description = desc;
 	}
 	
+	/**
+	 * The constructor to make a check event ??
+	 * 
+	 * @param sT The start time of the event
+	 * @param eT The end time of the event
+	 * @param tit The title of the event
+	 * @param desc The description of the event
+	 * @param id The id of the event
+	 */
 	public CalEvent(long sT, long eT, String tit, String desc, long id) {
 		startTime = sT;
 		endTime = eT;
@@ -177,29 +184,10 @@ public class CalEvent {
 	}
 	
 	/**
-	 * isOverTime setter, used when an event goes over its end time
-	 */
-	public void setOverTime() {
-		isOverTime = true;
-	}
-	
-	/**
-	 * isOverTime getter
+	 * Returns a TimeWindow representation of the event
 	 * 
-	 * @return true if the event has gone over its end time
+	 * @return The time window of the event
 	 */
-	public boolean getOverTime() {
-		return isOverTime;
-	}
-	
-	public void setDelayed() {
-		isDelayed = true;
-	}
-	
-	public boolean isDelayed() {
-		return isDelayed;
-	}
-	
 	public TimeWindow getTimeWindow() {
 		return new TimeWindow(this.startTime, this.endTime);
 	}
